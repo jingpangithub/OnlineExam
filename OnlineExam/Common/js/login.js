@@ -8,7 +8,7 @@ layui.config({
     }
 
     var form = layui.form,
-		layer = parent.layer === undefined ? layui.layer : parent.layer,
+		layer = layui.layer,
 		$ = layui.jquery;
 
     // Cloud Float...
@@ -51,6 +51,7 @@ layui.config({
 
         $cloud2.css("background-position", offset2 + "px 460px")
     }, 70);
+
     setInterval(function bg() {
         if (offsetbg >= mainwidth) {
             offsetbg = -580;
@@ -61,16 +62,10 @@ layui.config({
     }, 90);
 
     //登录按钮事件
-    form.on("submit(login)", function (data) {
-        $.getJSON("/Login/Login"
-            , data.field
-            ,function(data) {
-                if (data.Code == 200) {
-                    window.location.href = "/Home/Index";
-                } else {
-                    layer.msg(data.Message);
-                }
-            });
+    form.on("submit(login)", function () {
+        window.location.href = "../Admin/Index";
+
         return false;
     })
+
 })

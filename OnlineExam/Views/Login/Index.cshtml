@@ -13,8 +13,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="../../layui/css/layui.css" media="all" />
-    <link rel="stylesheet" href="../../css/login.css" media="all" />
+    <link rel="stylesheet" href="../Common/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="../Common/css/login.css" media="all" />
 </head>
 <body class="main" style="background-position: -280.8px 0px;">
     <div id="mainBody">
@@ -23,7 +23,7 @@
     </div>
 
     <div class="logintop">
-        <img src="/images/logo.png" style="width: 230px;margin-left:20px" />
+        <img src="/Common/images/login/logo.png" style="width: 230px;margin-left:20px" />
         <ul>
             <li><a href="http://www.henu.edu.cn/" target="_blank"><b><font color="#FFF">河南大学</font></b></a></li>
         </ul>
@@ -47,7 +47,7 @@
                         <button class="layui-btn loginbtn" lay-submit lay-filter="login">登录</button>
 
                         <label>
-                            <a href="#" style="color:white">忘记密码？</a>
+                            <a href="#" onclick="javascript: alert('请联系老师或管理员！')" style="color:white">忘记密码？</a>
                         </label>
                     </li>
                 </ul>
@@ -57,7 +57,7 @@
 
     <div class="loginbm">Copyright &copy; 2019 - @DateTime.Now.Year xxx.All Rights Reserved.</div>
 
-    <script type="text/javascript" src="/layui/layui.js"></script>
-    <script type="text/javascript" src="/userJs/login.js"></script>
+    <script type="text/javascript" src="/Common/layui/layui.js"></script>
+    <script type="text/javascript" src="/Common/js/login.js"></script>
 </body>
 </html>
