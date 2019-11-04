@@ -4,7 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - OnlineExam</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <title>@ViewBag.Title - 上机考试管理系统</title>
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -17,13 +18,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin:4px">
                 <ul class="nav navbar-nav">
                     <li style="margin:4px">
-                        @Html.ActionLink("考试信息管理", "Index", new { controller = "Teacher" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("考试信息管理", "Index", new { controller = "exams" }, new { @class = "dropdown-item" })
                     </li>
                     <li style="margin:4px">
-                        @Html.ActionLink("学生管理", "Index", new { controller = "Teacher" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("批阅与查询", "Index", new { controller = "grades" }, new { @class = "dropdown-item" })
                     </li>
                     <li style="margin:4px">
                         @Html.ActionLink("个人信息", "Index", new { controller = "Teacher" }, new { @class = "dropdown-item" })
+                    </li>
+                    <li style="margin:4px">
+                        @Html.ActionLink("退出", "Index", new { controller = "Login" }, new { @class = "dropdown-item" })
                     </li>
                 </ul>
             </div>

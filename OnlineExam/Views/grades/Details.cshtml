@@ -1,0 +1,51 @@
+﻿@model OnlineExam.Models.grade
+
+@{
+    ViewBag.Title = "查看";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<h2>查看</h2>
+
+<div>
+    <h4>成绩</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.gid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.eid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.eid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.gra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gra)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("编辑", "Edit", new { id = Model.gid }) |
+    @Html.ActionLink("返回", "Index")
+</p>
