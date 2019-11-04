@@ -1,57 +1,7 @@
 ﻿@{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
-<div class="container" style="padding:0">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        @Html.ActionLink("上机考试管理系统", "Index", new { controller = "Admin" }, new { @class = "navbar-brand text-danger font-weight-bold" })
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        师生管理
-                    </a>
-
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @Html.ActionLink("教师信息管理", "Index", new { controller = "Admin" }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("学生信息管理", "Index", new { controller = "Admin" }, new { @class = "dropdown-item" })
-                    </div>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        考试相关管理
-                    </a>
-
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <span class="dropdown-header">课程</span>
-                        <a class="dropdown-item" href="#">课程信息管理</a>
-
-                        <div class="dropdown-divider"></div>
-
-                        <span class="dropdown-header">考试</span>
-                        <a class="dropdown-item" href="#">考前管理</a>
-                        <a class="dropdown-item" href="#">考中管理</a>
-                        <a class="dropdown-item" href="#">考后管理</a>
-                    </div>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        我的
-                    </a>
-
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @Html.ActionLink("个人资料", "Index", new { controller = "Admin" }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("修改密码", "Index", new { controller = "Admin" }, new { @class = "dropdown-item" })
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</div>
-
-<div class="dropdown-divider"></div>
 
 <div class="jumbotron pb-1 mb-2 pt-2">
     <h1 id="nowtime" class="text-center"></h1>
@@ -89,6 +39,7 @@
             <h2 class="card-header">修改学生密码</h2>
             <div class="card-body text-dark">
                 <p>在此处可以快速跳转至修改学生密码页面。</p>
+
                 <p>
                     <a class="btn btn-secondary" href="#">Go!</a>
                 </p>
@@ -101,6 +52,7 @@
             <h2 class="card-header">导入学生信息</h2>
             <div class="card-body text-dark">
                 <p>在此处可以快速跳转至导入学生信息页面。</p>
+
                 <p>
                     <a class="btn btn-secondary" href="#">Go!</a>
                 </p>
@@ -117,6 +69,7 @@
                     <li>确认工作信息</li>
                     <li>个人基本信息</li>
                 </ul>
+
                 <p>
                     <a class="btn btn-secondary" href="#">Go!</a>
                 </p>

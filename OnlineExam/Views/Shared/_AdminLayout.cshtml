@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - OnlineExam</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles", required: false)
+</head>
+<body>
+    <div class="container" style="padding:0">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            @Html.ActionLink("上机考试管理系统", "Index", new { controller = "Admin" }, new { @class = "navbar-brand text-danger font-weight-bold" })
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="nav navbar-nav">
+                    <li style="margin:4px">
+                        @Html.ActionLink("学生信息管理", "Index", new { controller = "Admin" }, new { @class = "dropdown-item" })
+                    </li>
+                    <li style="margin:4px">
+                        @Html.ActionLink("教师信息管理", "Index", new { controller = "Admin" }, new { @class = "dropdown-item" })
+                    </li>
+                    <li style="margin:4px">
+                        @Html.ActionLink("课程信息管理", "Index", new { controller = "Admin" }, new { @class = "dropdown-item" })
+                    </li>
+                    <li style="margin:4px">
+                        @Html.ActionLink("个人信息", "Index", new { controller = "Admin" }, new { @class = "dropdown-item" })
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="dropdown-divider"></div>
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
