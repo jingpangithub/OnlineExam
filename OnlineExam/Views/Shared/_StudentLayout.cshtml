@@ -4,7 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - OnlineExam</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <title>@ViewBag.Title - 上机考试管理系统</title>
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -20,10 +21,13 @@
                         @Html.ActionLink("参加考试", "Index", new { controller = "Student" }, new { @class = "dropdown-item" })
                     </li>
                     <li style="margin:4px">
-                        @Html.ActionLink("考后管理", "Index", new { controller = "Student" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("考后查询", "Index", new { controller = "Student" }, new { @class = "dropdown-item" })
                     </li>
                     <li style="margin:4px">
                         @Html.ActionLink("个人信息", "Index", new { controller = "Student" }, new { @class = "dropdown-item" })
+                    </li>
+                    <li style="margin:4px">
+                        @Html.ActionLink("退出", "Index", new { controller = "Login" }, new { @class = "dropdown-item" })
                     </li>
                 </ul>
             </div>

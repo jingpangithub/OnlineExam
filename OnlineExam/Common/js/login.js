@@ -63,7 +63,17 @@ layui.config({
 
     //登录按钮事件
     form.on("submit(login)", function () {
-        window.location.href = "../Admin/Index";
+        if ($("#username").val() == "admin" && $("#password").val() == "123456") {
+            window.location.href = "../Admin/Index";
+        }
+        else if ($("#username").val() == "teacher" && $("#password").val() == "123456") {
+            window.location.href = "../Teacher/Index";
+        }
+        else if ($("#username").val() == "student" && $("#password").val() == "123456") {
+            window.location.href = "../Student/Index";
+        }
+        else
+            layer.msg("用户名或密码错误");
 
         return false;
     })

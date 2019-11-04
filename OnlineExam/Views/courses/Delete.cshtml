@@ -1,0 +1,57 @@
+﻿@model OnlineExam.Models.course
+
+@{
+    ViewBag.Title = "删除";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>删除</h2>
+
+<h3>确定删除此项?</h3>
+<div>
+    <h4>课程</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.cid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cmajor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cmajor)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="删除" class="btn btn-default" /> |
+            @Html.ActionLink("返回", "Index")
+        </div>
+    }
+</div>
