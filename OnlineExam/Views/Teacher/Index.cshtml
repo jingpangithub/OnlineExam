@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<div class="dropdown-divider"></div>
+
+<div class="jumbotron pb-1 mb-2 pt-2">
+    <h1 id="nowtime" class="text-center"></h1>
+
+    <p style="font-size:50px;font-family:楷体;">德高鸿儒博学，望重英雄豪杰。</p>
+    <p style="font-size:30px">欢迎你，同学！</p>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card border-danger mt-0 mb-3">
+            <h2 class="card-header text-danger">教师手册</h2>
+            <div class="card-body text-dark">
+                <ol>
+                    <li>
+                        <strong>必须</strong> 遵纪守法、做维护社会公德的模范。
+                    </li>
+                    <li>
+                         忠诚人民<strong>教育事业</strong>，梳理崇高职业理想。
+                    </li>
+                    <li>坚持育人为本，立德树人</li>
+                    <li>弘扬科学精神，勇于探索，追求真理，修正错误，精益求精。</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<img src="~/Common/images/home/shortcut.jpg" style="width: 150px;" />
+<div class="dropdown-divider"></div>
+
+<div class="row">
+    <div class="col">
+        <div class="card border-success mb-3">
+            <h2 class="card-header">编辑考试</h2>
+            <div class="card-body text-dark">
+                <p>在此处可以快速跳转至编辑考试页面。</p>
+                <p>
+                    <a class="btn btn-secondary" href="#">Go!</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-primary mb-3">
+            <h2 class="card-header">批改试卷</h2>
+            <div class="card-body text-dark">
+                <p>在此处可以快速跳转至批改试卷页面。</p>
+                <p>
+                    <a class="btn btn-secondary" href="#">Go!</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-info mb-3">
+            <h2 class="card-header">修改个人资料</h2>
+            <div class="card-body text-dark">
+                <p>在此处可以快速跳转至修改个人资料页面，其中包括：</p>
+                <ul>
+                    <li>修改密码</li>
+                    <li>修改个人基本信息</li>
+                </ul>
+                <p>
+                    <a class="btn btn-secondary" href="#">Go!</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //页面加载调用
+    window.onload = function () {
+        setInterval("NowTime()", 1000);
+    }
+
+    function NowTime() {
+        var time = new Date();
+        var year = time.getFullYear();
+        var month = time.getMonth();
+        var day = time.getDate();
+        var h = time.getHours();
+        var m = time.getMinutes();
+        var s = time.getSeconds();
+
+        //检查是否小于10
+        h = check(h);
+        m = check(m);
+        s = check(s);
+        document.getElementById("nowtime").innerHTML = "Now - " + year + "年" + month + "月" + day + "日  " + h + ":" + m + ":" + s;
+    }
+    //时间数字小于10，则在之前加个“0”补位。
+    function check(i) {
+        var num;
+        i < 10 ? num = "0" + i : num = i;
+        return num;
+    }
+</script>
+
