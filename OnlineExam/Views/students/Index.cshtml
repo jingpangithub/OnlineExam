@@ -1,0 +1,76 @@
+﻿@model IEnumerable<OnlineExam.Models.student>
+
+@{
+    ViewBag.Title = "学生信息";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>学生信息</h2>
+
+<p>
+    @Html.ActionLink("新建", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <p>
+        所学专业:@Html.DropDownList("Major", ViewBag.MajorList as IEnumerable<SelectListItem>, "全部")
+        姓名:@Html.TextBox("Name")
+        <input type="submit" value="检索" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.sid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ssex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.smajor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.spassword)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.sid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ssex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.smajor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.spassword)
+            </td>
+            <td>
+                @Html.ActionLink("编辑", "Edit", new { id = item.sid }) |
+                @Html.ActionLink("查看", "Details", new { id = item.sid }) |
+                @Html.ActionLink("删除", "Delete", new { id = item.sid })
+            </td>
+        </tr>
+    }
+
+</table>

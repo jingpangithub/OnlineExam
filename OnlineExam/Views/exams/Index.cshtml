@@ -1,0 +1,64 @@
+﻿@model IEnumerable<OnlineExam.Models.exam>
+
+@{
+    ViewBag.Title = "考试信息";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<h2>考试信息</h2>
+
+<p>
+    @Html.ActionLink("新建", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.eid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.emajor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.etest)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.eanswer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.egrade)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.eid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.emajor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.etest)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.eanswer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.egrade)
+        </td>
+        <td>
+            @Html.ActionLink("编辑", "Edit", new { id = item.eid }) |
+            @Html.ActionLink("查看", "Details", new { id = item.eid }) |
+            @Html.ActionLink("删除", "Delete", new { id = item.eid })
+        </td>
+    </tr>
+}
+
+</table>
