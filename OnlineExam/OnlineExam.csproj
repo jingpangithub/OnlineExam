@@ -180,7 +180,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\MyDb.mdf" />
+    <Content Include="App_Data\MyDb.mdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="App_Data\MyDb_log.ldf">
       <DependentUpon>MyDb.mdf</DependentUpon>
     </Content>
