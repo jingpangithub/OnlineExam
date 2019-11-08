@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using OnlineExam.Models;
 
-namespace OnlineExam.Controllers
+namespace OnlineExam.Areas.Admin.Controllers
 {
     public class adminsController : Controller
     {

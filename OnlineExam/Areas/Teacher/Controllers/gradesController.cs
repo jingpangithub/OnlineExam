@@ -8,132 +8,109 @@ using System.Web;
 using System.Web.Mvc;
 using OnlineExam.Models;
 
-namespace OnlineExam.Controllers
+namespace OnlineExam.Areas.Teacher.Controllers
 {
-    public class teachersController : Controller
+    public class gradesController : Controller
     {
-        private TeacherModel db = new TeacherModel();
+        private GradeModel db = new GradeModel();
 
-        // GET: teachers
+        // GET: grades
         public ActionResult Index()
         {
-            return View(db.teacher.ToList());
+            return View(db.grade.ToList());
         }
 
-        // GET: teachers/Details/5
+        // GET: grades/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            teacher teacher = db.teacher.Find(id);
-            if (teacher == null)
+            grade grade = db.grade.Find(id);
+            if (grade == null)
             {
                 return HttpNotFound();
             }
-            return View(teacher);
+            return View(grade);
         }
 
-        //性别下拉选择
-        private List<SelectListItem> GetGenderList()
-        {
-            return new List<SelectListItem>()
-            {
-                new SelectListItem
-                {
-                    Text = "男",
-                    Value = "男"
-                },new SelectListItem
-                {
-                    Text = "女",
-                    Value = "女"
-                }
-            };
-        }
-
-        // GET: teachers/Create
+        // GET: grades/Create
         public ActionResult Create()
         {
-            ViewBag.GenderList = GetGenderList();
             return View();
         }
 
-        // POST: teachers/Create
+        // POST: grades/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "tid,tname,tsex,tage,tdepartment,tpassword")] teacher teacher)
+        public ActionResult Create([Bind(Include = "gid,sid,eid,grade1")] grade grade)
         {
             if (ModelState.IsValid)
             {
-                db.teacher.Add(teacher);
+                db.grade.Add(grade);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.GenderList = GetGenderList();
-            return View(teacher);
+            return View(grade);
         }
 
-        // GET: teachers/Edit/5
+        // GET: grades/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            teacher teacher = db.teacher.Find(id);
-            if (teacher == null)
+            grade grade = db.grade.Find(id);
+            if (grade == null)
             {
                 return HttpNotFound();
             }
-
-            ViewBag.GenderList = GetGenderList();
-            return View(teacher);
+            return View(grade);
         }
 
-        // POST: teachers/Edit/5
+        // POST: grades/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "tid,tname,tsex,tage,tdepartment,tpassword")] teacher teacher)
+        public ActionResult Edit([Bind(Include = "gid,sid,eid,grade1")] grade grade)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(teacher).State = EntityState.Modified;
+                db.Entry(grade).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.GenderList = GetGenderList();
-            return View(teacher);
+            return View(grade);
         }
 
-        // GET: teachers/Delete/5
+        // GET: grades/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            teacher teacher = db.teacher.Find(id);
-            if (teacher == null)
+            grade grade = db.grade.Find(id);
+            if (grade == null)
             {
                 return HttpNotFound();
             }
-            return View(teacher);
+            return View(grade);
         }
 
-        // POST: teachers/Delete/5
+        // POST: grades/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            teacher teacher = db.teacher.Find(id);
-            db.teacher.Remove(teacher);
+            grade grade = db.grade.Find(id);
+            db.grade.Remove(grade);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

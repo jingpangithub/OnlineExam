@@ -1,22 +1,22 @@
 ﻿using System.Web.Mvc;
 
-namespace OnlineExam.Areas.Student_info
+namespace OnlineExam.Areas.Admin
 {
-    public class Student_infoAreaRegistration : AreaRegistration 
+    public class AdminAreaRegistration : AreaRegistration 
     {
         public override string AreaName 
         {
             get 
             {
-                return "Student_info";
+                return "Admin";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "Student_info_default",
-                "Student_info/{controller}/{action}/{id}",
+                "Admin_default",
+                "Admin/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
         }

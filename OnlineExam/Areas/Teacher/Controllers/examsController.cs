@@ -8,109 +8,109 @@ using System.Web;
 using System.Web.Mvc;
 using OnlineExam.Models;
 
-namespace OnlineExam.Controllers
+namespace OnlineExam.Areas.Teacher.Controllers
 {
-    public class coursesController : Controller
+    public class examsController : Controller
     {
-        private CourseModel db = new CourseModel();
+        private ExamModel db = new ExamModel();
 
-        // GET: courses
+        // GET: exams
         public ActionResult Index()
         {
-            return View(db.course.ToList());
+            return View(db.exam.ToList());
         }
 
-        // GET: courses/Details/5
+        // GET: exams/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            course course = db.course.Find(id);
-            if (course == null)
+            exam exam = db.exam.Find(id);
+            if (exam == null)
             {
                 return HttpNotFound();
             }
-            return View(course);
+            return View(exam);
         }
 
-        // GET: courses/Create
+        // GET: exams/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: courses/Create
+        // POST: exams/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "cid,cname,tid,cmajor")] course course)
+        public ActionResult Create([Bind(Include = "eid,tid,emajor,etest,eanswer,egrade")] exam exam)
         {
             if (ModelState.IsValid)
             {
-                db.course.Add(course);
+                db.exam.Add(exam);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(course);
+            return View(exam);
         }
 
-        // GET: courses/Edit/5
+        // GET: exams/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            course course = db.course.Find(id);
-            if (course == null)
+            exam exam = db.exam.Find(id);
+            if (exam == null)
             {
                 return HttpNotFound();
             }
-            return View(course);
+            return View(exam);
         }
 
-        // POST: courses/Edit/5
+        // POST: exams/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "cid,cname,tid,cmajor")] course course)
+        public ActionResult Edit([Bind(Include = "eid,tid,emajor,etest,eanswer,egrade")] exam exam)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(course).State = EntityState.Modified;
+                db.Entry(exam).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(course);
+            return View(exam);
         }
 
-        // GET: courses/Delete/5
+        // GET: exams/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            course course = db.course.Find(id);
-            if (course == null)
+            exam exam = db.exam.Find(id);
+            if (exam == null)
             {
                 return HttpNotFound();
             }
-            return View(course);
+            return View(exam);
         }
 
-        // POST: courses/Delete/5
+        // POST: exams/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            course course = db.course.Find(id);
-            db.course.Remove(course);
+            exam exam = db.exam.Find(id);
+            db.exam.Remove(exam);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

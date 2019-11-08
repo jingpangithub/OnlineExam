@@ -8,109 +8,109 @@ using System.Web;
 using System.Web.Mvc;
 using OnlineExam.Models;
 
-namespace OnlineExam.Controllers
+namespace OnlineExam.Areas.Teacher.Controllers
 {
-    public class gradesController : Controller
+    public class coursesController : Controller
     {
-        private GradeModel db = new GradeModel();
+        private CourseModel db = new CourseModel();
 
-        // GET: grades
+        // GET: courses
         public ActionResult Index()
         {
-            return View(db.grade.ToList());
+            return View(db.course.ToList());
         }
 
-        // GET: grades/Details/5
+        // GET: courses/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            grade grade = db.grade.Find(id);
-            if (grade == null)
+            course course = db.course.Find(id);
+            if (course == null)
             {
                 return HttpNotFound();
             }
-            return View(grade);
+            return View(course);
         }
 
-        // GET: grades/Create
+        // GET: courses/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: grades/Create
+        // POST: courses/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "gid,sid,eid,grade1")] grade grade)
+        public ActionResult Create([Bind(Include = "cid,cname,tid,cmajor")] course course)
         {
             if (ModelState.IsValid)
             {
-                db.grade.Add(grade);
+                db.course.Add(course);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(grade);
+            return View(course);
         }
 
-        // GET: grades/Edit/5
+        // GET: courses/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            grade grade = db.grade.Find(id);
-            if (grade == null)
+            course course = db.course.Find(id);
+            if (course == null)
             {
                 return HttpNotFound();
             }
-            return View(grade);
+            return View(course);
         }
 
-        // POST: grades/Edit/5
+        // POST: courses/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "gid,sid,eid,grade1")] grade grade)
+        public ActionResult Edit([Bind(Include = "cid,cname,tid,cmajor")] course course)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(grade).State = EntityState.Modified;
+                db.Entry(course).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(grade);
+            return View(course);
         }
 
-        // GET: grades/Delete/5
+        // GET: courses/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            grade grade = db.grade.Find(id);
-            if (grade == null)
+            course course = db.course.Find(id);
+            if (course == null)
             {
                 return HttpNotFound();
             }
-            return View(grade);
+            return View(course);
         }
 
-        // POST: grades/Delete/5
+        // POST: courses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            grade grade = db.grade.Find(id);
-            db.grade.Remove(grade);
+            course course = db.course.Find(id);
+            db.course.Remove(course);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
