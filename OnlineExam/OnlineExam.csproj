@@ -157,7 +157,7 @@
     <Compile Include="Areas\Teacher\TeacherAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\adminsController.cs" />
-    <Compile Include="Areas\Teacher\Controllers\coursesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\coursesController.cs" />
     <Compile Include="Areas\Teacher\Controllers\examsController.cs" />
     <Compile Include="Areas\Teacher\Controllers\gradesController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -170,8 +170,8 @@
     </Compile>
     <Compile Include="Areas\Admin\Models\admin.cs" />
     <Compile Include="Areas\Admin\Models\AdminModel.cs" />
-    <Compile Include="Areas\Teacher\Models\course.cs" />
-    <Compile Include="Areas\Teacher\Models\CourseModel.cs" />
+    <Compile Include="Areas\Admin\Models\course.cs" />
+    <Compile Include="Areas\Admin\Models\CourseModel.cs" />
     <Compile Include="Areas\Teacher\Models\exam.cs" />
     <Compile Include="Areas\Teacher\Models\ExamModel.cs" />
     <Compile Include="Areas\Teacher\Models\grade.cs" />
@@ -451,11 +451,11 @@
     <Content Include="Areas\Admin\Views\students\Details.cshtml" />
     <Content Include="Areas\Admin\Views\students\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\students\Index.cshtml" />
-    <Content Include="Areas\Teacher\Views\courses\Create.cshtml" />
-    <Content Include="Areas\Teacher\Views\courses\Delete.cshtml" />
-    <Content Include="Areas\Teacher\Views\courses\Details.cshtml" />
-    <Content Include="Areas\Teacher\Views\courses\Edit.cshtml" />
-    <Content Include="Areas\Teacher\Views\courses\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\courses\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\courses\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\courses\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\courses\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\courses\Index.cshtml" />
     <Content Include="Areas\Teacher\Views\exams\Create.cshtml" />
     <Content Include="Areas\Teacher\Views\exams\Delete.cshtml" />
     <Content Include="Areas\Teacher\Views\exams\Details.cshtml" />
@@ -468,11 +468,9 @@
     <Content Include="Areas\Teacher\Views\grades\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Admin\Views\Default\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Student\Models\" />
     <Folder Include="Areas\Student\Views\Shared\" />
-    <Folder Include="Areas\Teacher\Views\Default\" />
     <Folder Include="Areas\Teacher\Views\Shared\" />
     <Folder Include="Models\" />
   </ItemGroup>
