@@ -180,6 +180,7 @@
     <Compile Include="Areas\Admin\Models\StudentModel.cs" />
     <Compile Include="Areas\Admin\Models\teacher.cs" />
     <Compile Include="Areas\Admin\Models\TeacherModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -472,7 +473,6 @@
     <Folder Include="Areas\Student\Models\" />
     <Folder Include="Areas\Student\Views\Shared\" />
     <Folder Include="Areas\Teacher\Views\Shared\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
