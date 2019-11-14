@@ -64,13 +64,13 @@ layui.config({
     //登录按钮事件
     form.on("submit(login)", function () {
         if ($("#username").val() == "admin" && $("#password").val() == "123456") {
-            window.location.href = "../Admin/Index";
+            window.location.href = "../Admin/Admin/Index";
         }
         else if ($("#username").val() == "teacher" && $("#password").val() == "123456") {
-            window.location.href = "../Teacher/Index";
+            window.location.href = "../Teacher/Teacher/Index";
         }
         else if ($("#username").val() == "student" && $("#password").val() == "123456") {
-            window.location.href = "../Student/Index";
+            window.location.href = "../Student/Student/Index";
         }
         else
             layer.msg("用户名或密码错误");

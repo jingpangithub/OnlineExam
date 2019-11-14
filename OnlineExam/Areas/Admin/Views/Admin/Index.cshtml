@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "首页";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="jumbotron pb-1 mb-2 pt-2">
+    <h1 id="nowtime" class="text-center">TIME</h1>
+
+    <p style="font-size:50px;font-family:楷体;">博观而约取，厚积而薄发。</p>
+    <p style="font-size:30px">欢迎您，管理员！</p>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card border-danger mt-0 mb-3">
+            <h2 class="card-header text-danger">管理条例</h2>
+            <div class="card-body text-dark">
+                <ol>
+                    <li>
+                        <strong>必须</strong> 遵纪守法、做维护社会公德的模范。
+                    </li>
+                    <li>
+                        热爱工作，勤奋努力，提高工作 <strong>效率</strong> 和工作 <strong>质量</strong>。
+                    </li>
+                    <li>对自己负责，严以律己，宽以待人。</li>
+                    <li>相互协调，相互支持，配合老师和学生工作。</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<img src="~/Common/images/home/shortcut.jpg" style="width: 150px;" />
+<div class="dropdown-divider"></div>
+
+<div class="row">
+    <div class="col">
+        <div class="card border-success mb-3">
+            <h2 class="card-header">修改学生密码</h2>
+            <div class="card-body text-dark">
+                <p>在此处可以快速跳转至修改学生密码页面。</p>
+
+                <p>
+                    <a class="btn btn-secondary" href="#">Go!</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-primary mb-3">
+            <h2 class="card-header">导入学生信息</h2>
+            <div class="card-body text-dark">
+                <p>在此处可以快速跳转至导入学生信息页面。</p>
+
+                <p>
+                    <a class="btn btn-secondary" href="#">Go!</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-info mb-3">
+            <h2 class="card-header">修改个人资料</h2>
+            <div class="card-body text-dark">
+                <p>在此处可以快速跳转至修改个人资料页面，其中包括：</p>
+                <ul>
+                    <li>确认工作信息</li>
+                    <li>个人基本信息</li>
+                </ul>
+
+                <p>
+                    <a class="btn btn-secondary" href="../admins/Index">Go!</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //页面加载调用
+    window.onload = function () {
+        setInterval("NowTime()", 1000);
+    }
+
+    function NowTime() {
+        var time = new Date();
+        var year = time.getFullYear();
+        var month = time.getMonth();
+        var day = time.getDate();
+        var h = time.getHours();
+        var m = time.getMinutes();
+        var s = time.getSeconds();
+
+        //检查是否小于10
+        h = check(h);
+        m = check(m);
+        s = check(s);
+        document.getElementById("nowtime").innerHTML = "Now - " + year + "年" + month + "月" + day + "日  " + h + ":" + m + ":" + s;
+    }
+    //时间数字小于10，则在之前加个“0”补位。
+    function check(i) {
+        var num;
+        i < 10 ? num = "0" + i : num = i;
+        return num;
+    }
+</script>
