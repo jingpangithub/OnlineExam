@@ -8,7 +8,7 @@
 <h2>考试信息</h2>
 
 <p>
-    @Html.ActionLink("新建", "Create")
+    @Html.ActionLink("创建考试", "Create")
 </p>
 <table class="table">
     <tr>
@@ -45,10 +45,12 @@
             @Html.DisplayFor(modelItem => item.emajor)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.etest)
+            <button>查看</button>
+            <!-- @Html.DisplayFor(modelItem => item.etest)  -->
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.eanswer)
+            <button>查看</button>
+            <!-- @Html.DisplayFor(modelItem => item.eanswer) -->
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.egrade)
@@ -56,7 +58,8 @@
         <td>
             @Html.ActionLink("编辑", "Edit", new { id = item.eid }) |
             @Html.ActionLink("查看", "Details", new { id = item.eid }) |
-            @Html.ActionLink("删除", "Delete", new { id = item.eid })
+            @Html.ActionLink("删除", "Delete", new { id = item.eid })|
+            <button>开启考试</button>
         </td>
     </tr>
 }

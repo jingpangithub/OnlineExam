@@ -36,16 +36,20 @@
         <div class="form-group">
             @Html.LabelFor(model => model.etest, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.etest, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.etest, "", new { @class = "text-danger" })
+                <button>编辑</button>
+                <button>导入</button>
+                <!-- @Html.EditorFor(model => model.etest, new { htmlAttributes = new { @class = "form-control" } }) -->
+                <!-- @Html.ValidationMessageFor(model => model.etest, "", new { @class = "text-danger" }) -->
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.eanswer, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.eanswer, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.eanswer, "", new { @class = "text-danger" })
+                <button>编辑</button>
+                <button>导入</button>
+                <!-- @Html.EditorFor(model => model.eanswer, new { htmlAttributes = new { @class = "form-control" } }) -->
+                <!-- @Html.ValidationMessageFor(model => model.eanswer, "", new { @class = "text-danger" }) -->
             </div>
         </div>
 
@@ -59,7 +63,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="保存" class="btn btn-default" />
             </div>
         </div>
     </div>
