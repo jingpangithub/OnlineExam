@@ -36,12 +36,20 @@ namespace OnlineExam.Controllers
 
             string strSql = "Username='" + Username + "' and Password='" + Password + "'";
             List<Model.UserTable> userList = bllUser.DataTableToList(bllUser.GetList(strSql).Tables[0]);
-            
+
             //authority
             if (userList.Count > 0)
             {
                 Model.UserTable userModel = userList[0];
-                strSql = "select * from AccessTable where ID in (select TableID from PermissionTable where UserID = " + userModel.ID + ")";
+                string d = userModel.UserType;
+
+                if (d.Equals("管理员"))
+                    strSql = "select * from AccessTable where ID = 1 union all select * from AccessTable where ID = 2";
+                if (d.Equals("教师"))
+                    strSql = "select * from AccessTable where ID = 1";
+                else
+                    strSql = "select * from AccessTable where ID = 1";
+
                 List<Model.AccessTable> tableList = new BLL.AccessTable().DataTableToList(DbHelperSQL.Query(strSql).Tables[0]);
 
                 //get granted table
@@ -56,6 +64,8 @@ namespace OnlineExam.Controllers
                     sessionString = sessionString.Remove(sessionString.Length - 1);
                     sessionString += "]";
                 }
+
+
                 //set session time out
                 Session.Timeout = 30;
                 Session["username"] = userModel.Username;
@@ -88,7 +98,7 @@ namespace OnlineExam.Controllers
 
             return sBuilder.ToString();
         }
-        
+
         public ActionResult Logout()
         {
             Session.Clear();
@@ -98,6 +108,6 @@ namespace OnlineExam.Controllers
 
             return RedirectToAction("Index", "Login");
             //return this.Json(new { result = 1, data = "" });
-        }  
+        }
     }
 }
