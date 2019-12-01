@@ -36,20 +36,20 @@ namespace OnlineExam.Controllers
 
             string strSql = "Username='" + Username + "' and Password='" + Password + "'";
             List<Model.UserTable> userList = bllUser.DataTableToList(bllUser.GetList(strSql).Tables[0]);
-
+            
             //authority
             if (userList.Count > 0)
             {
                 Model.UserTable userModel = userList[0];
                 strSql = "select * from AccessTable where ID in (select TableID from PermissionTable where UserID = " + userModel.ID + ")";
-                List<Model.Access> tableList = new BLL.Access().DataTableToList(DbHelperSQL.Query(strSql).Tables[0]);
+                List<Model.AccessTable> tableList = new BLL.AccessTable().DataTableToList(DbHelperSQL.Query(strSql).Tables[0]);
 
                 //get granted table
                 string sessionString = "";
                 if (tableList.Count != 0)
                 {
                     sessionString += "[";
-                    foreach (Model.Access tableModel in tableList)
+                    foreach (Model.AccessTable tableModel in tableList)
                     {
                         sessionString += new JavaScriptSerializer().Serialize(tableModel) + ",";
                     }

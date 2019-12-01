@@ -3,12 +3,12 @@
 namespace OnlineExam.Model
 {
     /// <summary>
-	/// Access:实体类
+	/// AccessTable:实体类
 	/// </summary>
 	[Serializable]
-    public partial class Access
+    public partial class AccessTable
     {
-        public Access()
+        public AccessTable()
         { }
         #region Model
         private int id;

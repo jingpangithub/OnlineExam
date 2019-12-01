@@ -82,7 +82,7 @@
         });
         function LoginSubmit() {
             if (!$("#form_login").valid()) {
-                toastr.error("登录失败，请检查用户名和密码");
+                toastr.error("登录失败");
                 return false;
             }
             $.ajax({

@@ -7,12 +7,12 @@ using OnlineExam.Model;
 namespace OnlineExam.BLL
 {
     /// <summary>
-	/// 业务逻辑类:Access
+	/// 业务逻辑类:AccessTable
 	/// </summary>
-	public partial class Access
+	public partial class AccessTable
     {
-        private readonly OnlineExam.DAL.Access dal = new OnlineExam.DAL.Access();
-        public Access()
+        private readonly OnlineExam.DAL.AccessTable dal = new OnlineExam.DAL.AccessTable();
+        public AccessTable()
         { }
         #region  BasicMethod
         /// <summary>
@@ -26,7 +26,7 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 增加一条数据
         /// </summary>
-        public int Add(OnlineExam.Model.Access model)
+        public int Add(OnlineExam.Model.AccessTable model)
         {
             return dal.Add(model);
         }
@@ -34,7 +34,7 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 更新一条数据
         /// </summary>
-        public bool Update(OnlineExam.Model.Access model)
+        public bool Update(OnlineExam.Model.AccessTable model)
         {
             return dal.Update(model);
         }
@@ -58,7 +58,7 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 得到一个对象实体
         /// </summary>
-        public OnlineExam.Model.Access GetModel(int ID)
+        public OnlineExam.Model.AccessTable GetModel(int ID)
         {
 
             return dal.GetModel(ID);
@@ -67,7 +67,7 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 得到一个对象实体，从缓存中
         /// </summary>
-        public OnlineExam.Model.Access GetModelByCache(int ID)
+        public OnlineExam.Model.AccessTable GetModelByCache(int ID)
         {
 
             string CacheKey = "AccessTableModel-" + ID;
@@ -85,7 +85,7 @@ namespace OnlineExam.BLL
                 }
                 catch { }
             }
-            return (OnlineExam.Model.Access)objModel;
+            return (OnlineExam.Model.AccessTable)objModel;
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public List<OnlineExam.Model.Access> GetModelList(string strWhere)
+        public List<OnlineExam.Model.AccessTable> GetModelList(string strWhere)
         {
             DataSet ds = dal.GetList(strWhere);
             return DataTableToList(ds.Tables[0]);
@@ -113,13 +113,13 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public List<OnlineExam.Model.Access> DataTableToList(DataTable dt)
+        public List<OnlineExam.Model.AccessTable> DataTableToList(DataTable dt)
         {
-            List<OnlineExam.Model.Access> modelList = new List<OnlineExam.Model.Access>();
+            List<OnlineExam.Model.AccessTable> modelList = new List<OnlineExam.Model.AccessTable>();
             int rowsCount = dt.Rows.Count;
             if (rowsCount > 0)
             {
-                OnlineExam.Model.Access model;
+                OnlineExam.Model.AccessTable model;
                 for (int n = 0; n < rowsCount; n++)
                 {
                     model = dal.DataRowToModel(dt.Rows[n]);
