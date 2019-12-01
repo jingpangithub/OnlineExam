@@ -1,1 +1,97 @@
-﻿
+﻿<div class="wrapper wrapper-content animated fadeIn">
+    <div class="p-w-md m-t-sm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="flot-chart m-b-xl">
+                    <div class="flot-chart-content" id="main" style="height:500px;">
+                        <div class="jumbotron pb-1 mb-2 pt-2">
+                            <h1 id="nowtime" class="text-center">TIME</h1>
+
+                            <p style="font-size:48px;font-family:楷体;">博观而约取，厚积而薄发。</p>
+                            <p style="font-size:48px;font-family:楷体;">纸上得来终觉浅，绝知此事要躬行。</p>
+                            <p style="font-size:48px;font-family:楷体;">德高鸿儒博学，望重英雄豪杰。</p>
+                            <p style="font-size:28px">欢迎您，管理员！</p>
+                        </div>
+
+                        <div class="jumbotron pb-1 mb-2 pt-2">
+                            <h2 class="card-header text-danger">管理条例</h2>
+                            <div class="card-body text-dark">
+                                <ol>
+                                    <li>
+                                        <strong>必须</strong> 遵纪守法、做维护社会公德的模范。
+                                    </li>
+                                    <li>
+                                        热爱工作，勤奋努力，提高工作 <strong>效率</strong> 和工作 <strong>质量</strong>。
+                                    </li>
+                                    <li>对自己负责，严以律己，宽以待人。</li>
+                                    <li>相互协调，相互支持，配合老师和学生工作。</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="jumbotron pb-1 mb-2 pt-2">
+                            <h2 class="card-header text-danger">考试规则</h2>
+                            <div class="card-body text-dark">
+                                <ol>
+                                    <li>
+                                        自觉服从监考员等考试工作人员管理，不得以任何理由妨碍监考员等考试工作人员履行职责，不得扰乱考场及其他考试工作地点的秩序。
+                                    </li>
+                                    <li>
+                                        凭准考证和相关证件，按规定时间和地点参加考试。
+                                    </li>
+                                    <li>
+                                        在考场内须保持安静，不准吸烟，不准喧哗，不准交头接耳、左顾右盼、打手势、做暗号，不准夹带、旁窥、抄袭或有意让他人抄袭，不准传递文具、物品等。
+                                    </li>
+                                    <li>
+                                        如不遵守考试规则，不服从考试工作人员管理，有违纪、作弊等行为，教育考试机构将按照《国家教育考试违规处理办法》及有关规定进行处理，并将记入国家教育考试诚信档案。
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="jumbotron pb-1 mb-2 pt-2">
+                            <h2 class="card-header text-danger">教师手册</h2>
+                            <div class="card-body text-dark">
+                                <ol>
+                                    <li>
+                                        <strong>必须</strong> 遵纪守法、做维护社会公德的模范。
+                                    </li>
+                                    <li>
+                                        忠诚人民<strong>教育事业</strong>，树立崇高职业理想。
+                                    </li>
+                                    <li>坚持育人为本，立德树人。</li>
+                                    <li>弘扬科学精神，勇于探索，追求真理，修正错误，精益求精。</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //页面加载调用
+    window.onload = function () {
+        setInterval("NowTime()", 1000);
+    }
+    function NowTime() {
+        var time = new Date();
+        var year = time.getFullYear();
+        var month = time.getMonth();
+        var day = time.getDate();
+        var h = time.getHours();
+        var m = time.getMinutes();
+        var s = time.getSeconds();
+        //检查是否小于10
+        h = check(h);
+        m = check(m);
+        s = check(s);
+        document.getElementById("nowtime").innerHTML = "Now - " + year + "年" + month + "月" + day + "日  " + h + ":" + m + ":" + s;
+    }
+    //时间数字小于10，则在之前加个“0”补位。
+    function check(i) {
+        var num;
+        i < 10 ? num = "0" + i : num = i;
+        return num;
+    }
+</script>
