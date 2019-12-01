@@ -7,11 +7,11 @@ using Maticsoft.DBUtility;
 namespace OnlineExam.DAL
 {
     /// <summary>
-	/// 数据访问类:Access
+	/// 数据访问类:AccessTable
 	/// </summary>
-	public partial class Access
+	public partial class AccessTable
     {
-        public Access()
+        public AccessTable()
         { }
 
         #region  BasicMethod
@@ -21,7 +21,7 @@ namespace OnlineExam.DAL
         public bool Exists(int ID)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select count(1) from Access");
+            strSql.Append("select count(1) from AccessTable");
             strSql.Append(" where ID=@ID");
             SqlParameter[] parameters = {
                     new SqlParameter("@ID", SqlDbType.Int,4)
@@ -35,10 +35,10 @@ namespace OnlineExam.DAL
         /// <summary>
         /// 增加一条数据
         /// </summary>
-        public int Add(OnlineExam.Model.Access model)
+        public int Add(OnlineExam.Model.AccessTable model)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("insert into Access(");
+            strSql.Append("insert into AccessTable(");
             strSql.Append("TableName,TableAdress)");
             strSql.Append(" values (");
             strSql.Append("@TableName,@TableAdress)");
@@ -62,10 +62,10 @@ namespace OnlineExam.DAL
         /// <summary>
         /// 更新一条数据
         /// </summary>
-        public bool Update(OnlineExam.Model.Access model)
+        public bool Update(OnlineExam.Model.AccessTable model)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("update Access set ");
+            strSql.Append("update AccessTable set ");
             strSql.Append("TableName=@TableName,");
             strSql.Append("TableAdress=@TableAdress");
             strSql.Append(" where ID=@ID");
@@ -95,7 +95,7 @@ namespace OnlineExam.DAL
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("delete from Access ");
+            strSql.Append("delete from AccessTable ");
             strSql.Append(" where ID=@ID");
             SqlParameter[] parameters = {
                     new SqlParameter("@ID", SqlDbType.Int,4)
@@ -118,7 +118,7 @@ namespace OnlineExam.DAL
         public bool DeleteList(string IDlist)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("delete from Access ");
+            strSql.Append("delete from AccessTable ");
             strSql.Append(" where ID in (" + IDlist + ")  ");
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString());
             if (rows > 0)
@@ -135,18 +135,18 @@ namespace OnlineExam.DAL
         /// <summary>
         /// 得到一个对象实体
         /// </summary>
-        public OnlineExam.Model.Access GetModel(int ID)
+        public OnlineExam.Model.AccessTable GetModel(int ID)
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select  top 1 ID,TableName,TableAdress from Access ");
+            strSql.Append("select  top 1 ID,TableName,TableAdress from AccessTable ");
             strSql.Append(" where ID=@ID");
             SqlParameter[] parameters = {
                     new SqlParameter("@ID", SqlDbType.Int,4)
             };
             parameters[0].Value = ID;
 
-            OnlineExam.Model.Access model = new OnlineExam.Model.Access();
+            OnlineExam.Model.AccessTable model = new OnlineExam.Model.AccessTable();
             DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
             if (ds.Tables[0].Rows.Count > 0)
             {
@@ -162,9 +162,9 @@ namespace OnlineExam.DAL
         /// <summary>
         /// 得到一个对象实体
         /// </summary>
-        public OnlineExam.Model.Access DataRowToModel(DataRow row)
+        public OnlineExam.Model.AccessTable DataRowToModel(DataRow row)
         {
-            OnlineExam.Model.Access model = new OnlineExam.Model.Access();
+            OnlineExam.Model.AccessTable model = new OnlineExam.Model.AccessTable();
             if (row != null)
             {
                 if (row["ID"] != null && row["ID"].ToString() != "")
@@ -190,7 +190,7 @@ namespace OnlineExam.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select ID,TableName,TableAdress ");
-            strSql.Append(" FROM Access ");
+            strSql.Append(" FROM AccessTable ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -210,7 +210,7 @@ namespace OnlineExam.DAL
                 strSql.Append(" top " + Top.ToString());
             }
             strSql.Append(" ID,TableName,TableAdress ");
-            strSql.Append(" FROM Access ");
+            strSql.Append(" FROM AccessTable ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -225,7 +225,7 @@ namespace OnlineExam.DAL
         public int GetRecordCount(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select count(1) FROM Access ");
+            strSql.Append("select count(1) FROM AccessTable ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -256,7 +256,7 @@ namespace OnlineExam.DAL
             {
                 strSql.Append("order by T.ID desc");
             }
-            strSql.Append(")AS Row, T.*  from Access T ");
+            strSql.Append(")AS Row, T.*  from AccessTable T ");
             if (!string.IsNullOrEmpty(strWhere.Trim()))
             {
                 strSql.Append(" WHERE " + strWhere);
@@ -281,7 +281,7 @@ namespace OnlineExam.DAL
 					new SqlParameter("@OrderType", SqlDbType.Bit),
 					new SqlParameter("@strWhere", SqlDbType.VarChar,1000),
 					};
-			parameters[0].Value = "Access";
+			parameters[0].Value = "AccessTable";
 			parameters[1].Value = "ID";
 			parameters[2].Value = PageSize;
 			parameters[3].Value = PageIndex;
