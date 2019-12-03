@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessTable.cs" />
-    <Compile Include="UserTable.cs" />
+    <Compile Include="AdminTable.cs" />
+    <Compile Include="StudentTable.cs" />
+    <Compile Include="TeacherTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -51,7 +53,7 @@
       <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\DBUtility\DBUtility.csproj">
-      <Project>{0988c62e-247f-471f-a183-db509c7a3839}</Project>
+      <Project>{115564f4-80bd-43af-9413-00cf97c667a3}</Project>
       <Name>DBUtility</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">

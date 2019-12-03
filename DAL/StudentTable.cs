@@ -7,11 +7,11 @@ using Maticsoft.DBUtility;
 namespace OnlineExam.DAL
 {
     /// <summary>
-	/// 数据访问类:UserTable
+	/// 数据访问类:StudentTable
 	/// </summary>
-    public partial class UserTable
+    public partial class StudentTable
     {
-        public UserTable()
+        public StudentTable()
         { }
 
         #region  BasicMethod
@@ -21,7 +21,7 @@ namespace OnlineExam.DAL
         public bool Exists(int ID)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select count(1) from UserTable");
+            strSql.Append("select count(1) from StudentTable");
             strSql.Append(" where ID=@ID");
             SqlParameter[] parameters = {
                     new SqlParameter("@ID", SqlDbType.Int,4)
@@ -34,21 +34,25 @@ namespace OnlineExam.DAL
         /// <summary>
         /// 增加一条数据
         /// </summary>
-        public int Add(OnlineExam.Model.UserTable model)
+        public int Add(OnlineExam.Model.StudentTable model)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("insert into UserTable(");
-            strSql.Append("UserType,Username,Password)");
+            strSql.Append("insert into StudentTable(");
+            strSql.Append("Username,Password,Name,Sex,Major)");
             strSql.Append(" values (");
-            strSql.Append("@UserType,@Username,@Password)");
+            strSql.Append("@Username,@Password,@Name,@Sex,@Major)");
             strSql.Append(";select @@IDENTITY");
             SqlParameter[] parameters = {
-                    new SqlParameter("@UserType", SqlDbType.NVarChar,50),
                     new SqlParameter("@Username", SqlDbType.VarChar,50),
-                    new SqlParameter("@Password", SqlDbType.VarChar,50)};
-            parameters[0].Value = model.UserType;
-            parameters[1].Value = model.Username;
-            parameters[2].Value = model.Password;
+                    new SqlParameter("@Password", SqlDbType.VarChar,50),
+                    new SqlParameter("@Name", SqlDbType.NVarChar,50),
+                    new SqlParameter("@Sex", SqlDbType.NVarChar,50),
+                    new SqlParameter("@Major", SqlDbType.NVarChar, 50)};
+            parameters[0].Value = model.Username;
+            parameters[1].Value = model.Password;
+            parameters[2].Value = model.Name;
+            parameters[3].Value = model.Sex;
+            parameters[4].Value = model.Major;
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), parameters);
             if (obj == null)
@@ -63,23 +67,29 @@ namespace OnlineExam.DAL
         /// <summary>
         /// 更新一条数据
         /// </summary>
-        public bool Update(OnlineExam.Model.UserTable model)
+        public bool Update(OnlineExam.Model.StudentTable model)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("update UserTable set ");
-            strSql.Append("UserType=@UserType,");
+            strSql.Append("update StudentTable set ");
             strSql.Append("Username=@Username,");
-            strSql.Append("Password=@Password");
+            strSql.Append("Password=@Password,");
+            strSql.Append("Name=@Name,");
+            strSql.Append("Sex=@Sex,");
+            strSql.Append("Major=@Major");
             strSql.Append(" where ID=@ID");
             SqlParameter[] parameters = {
-                    new SqlParameter("@UserType", SqlDbType.NVarChar,50),
                     new SqlParameter("@Username", SqlDbType.VarChar,50),
                     new SqlParameter("@Password", SqlDbType.VarChar,50),
+                    new SqlParameter("@Name", SqlDbType.NVarChar,50),
+                    new SqlParameter("@Sex", SqlDbType.NVarChar,50),
+                    new SqlParameter("@Major", SqlDbType.NVarChar,50),
                     new SqlParameter("@ID", SqlDbType.Int,4)};
-            parameters[0].Value = model.UserType;
-            parameters[1].Value = model.Username;
-            parameters[2].Value = model.Password;
-            parameters[3].Value = model.ID;
+            parameters[0].Value = model.Username;
+            parameters[1].Value = model.Password;
+            parameters[2].Value = model.Name;
+            parameters[3].Value = model.Sex;
+            parameters[4].Value = model.Major;
+            parameters[5].Value = model.ID;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
@@ -99,7 +109,7 @@ namespace OnlineExam.DAL
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("delete from UserTable ");
+            strSql.Append("delete from StudentTable ");
             strSql.Append(" where ID=@ID");
             SqlParameter[] parameters = {
                     new SqlParameter("@ID", SqlDbType.Int,4)
@@ -122,7 +132,7 @@ namespace OnlineExam.DAL
         public bool DeleteList(string IDlist)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("delete from UserTable ");
+            strSql.Append("delete from StudentTable ");
             strSql.Append(" where ID in (" + IDlist + ")  ");
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString());
             if (rows > 0)
@@ -139,18 +149,18 @@ namespace OnlineExam.DAL
         /// <summary>
         /// 得到一个对象实体
         /// </summary>
-        public OnlineExam.Model.UserTable GetModel(int ID)
+        public OnlineExam.Model.StudentTable GetModel(int ID)
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select  top 1 ID,UserType,Username,Password from UserTable ");
+            strSql.Append("select  top 1 ID,Username,Password,Name,Sex,Major from StudentTable ");
             strSql.Append(" where ID=@ID");
             SqlParameter[] parameters = {
                     new SqlParameter("@ID", SqlDbType.Int,4)
             };
             parameters[0].Value = ID;
 
-            OnlineExam.Model.UserTable model = new OnlineExam.Model.UserTable();
+            OnlineExam.Model.StudentTable model = new OnlineExam.Model.StudentTable();
             DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
             if (ds.Tables[0].Rows.Count > 0)
             {
@@ -166,18 +176,14 @@ namespace OnlineExam.DAL
         /// <summary>
         /// 得到一个对象实体
         /// </summary>
-        public OnlineExam.Model.UserTable DataRowToModel(DataRow row)
+        public OnlineExam.Model.StudentTable DataRowToModel(DataRow row)
         {
-            OnlineExam.Model.UserTable model = new OnlineExam.Model.UserTable();
+            OnlineExam.Model.StudentTable model = new OnlineExam.Model.StudentTable();
             if (row != null)
             {
                 if (row["ID"] != null && row["ID"].ToString() != "")
                 {
                     model.ID = int.Parse(row["ID"].ToString());
-                }
-                if (row["UserType"] != null)
-                {
-                    model.UserType = row["UserType"].ToString();
                 }
                 if (row["Username"] != null)
                 {
@@ -186,6 +192,18 @@ namespace OnlineExam.DAL
                 if (row["Password"] != null)
                 {
                     model.Password = row["Password"].ToString();
+                }
+                if (row["Name"] != null)
+                {
+                    model.Name = row["Name"].ToString();
+                }
+                if (row["Sex"] != null)
+                {
+                    model.Sex = row["Sex"].ToString();
+                }
+                if (row["Major"] != null)
+                {
+                    model.Major = row["Major"].ToString();
                 }
             }
             return model;
@@ -197,8 +215,8 @@ namespace OnlineExam.DAL
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select ID,UserType,Username,Password ");
-            strSql.Append(" FROM UserTable ");
+            strSql.Append("select ID,Username,Password,Name,Sex,Major ");
+            strSql.Append(" FROM StudentTable ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -217,8 +235,8 @@ namespace OnlineExam.DAL
             {
                 strSql.Append(" top " + Top.ToString());
             }
-            strSql.Append(" ID,UserType,Username,Password ");
-            strSql.Append(" FROM UserTable ");
+            strSql.Append(" ID,Username,Password,Name,Sex,Major ");
+            strSql.Append(" FROM StudentTable ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -233,7 +251,7 @@ namespace OnlineExam.DAL
         public int GetRecordCount(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select count(1) FROM UserTable ");
+            strSql.Append("select count(1) FROM StudentTable ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -264,7 +282,7 @@ namespace OnlineExam.DAL
             {
                 strSql.Append("order by T.ID desc");
             }
-            strSql.Append(")AS Row, T.*  from UserTable T ");
+            strSql.Append(")AS Row, T.*  from StudentTable T ");
             if (!string.IsNullOrEmpty(strWhere.Trim()))
             {
                 strSql.Append(" WHERE " + strWhere);
@@ -289,7 +307,7 @@ namespace OnlineExam.DAL
 					new SqlParameter("@OrderType", SqlDbType.Bit),
 					new SqlParameter("@strWhere", SqlDbType.VarChar,1000),
 					};
-			parameters[0].Value = "UserTable";
+			parameters[0].Value = "StudentTable";
 			parameters[1].Value = "ID";
 			parameters[2].Value = PageSize;
 			parameters[3].Value = PageIndex;

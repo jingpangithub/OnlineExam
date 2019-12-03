@@ -25,6 +25,7 @@ namespace OnlineExam.Codes
             filterContext.HttpContext.Response.Expires = 0;
             filterContext.HttpContext.Response.CacheControl = "no-cache";
             filterContext.HttpContext.Response.Cache.SetNoStore();
+
             if (feedback == -7)
             {
                 name = (string)filterContext.HttpContext.Session["username"];

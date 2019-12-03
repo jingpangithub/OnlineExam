@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessTable.cs" />
-    <Compile Include="UserTable.cs" />
+    <Compile Include="AdminTable.cs" />
+    <Compile Include="StudentTable.cs" />
+    <Compile Include="TeacherTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

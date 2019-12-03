@@ -31,6 +31,7 @@
                 </ul>
             </div>
         </nav>
+
         <div id="page-wrapper" class="gray-bg dashbard-1">
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -39,7 +40,7 @@
                             <span class="m-r-sm text-muted welcome-message">上机考试管理系统</span>
                         </li>
                         <li>
-                            <span class="m-r-sm text-muted welcome-message">@Session["username"]</span>
+                            <span class="m-r-sm text-muted welcome-message">欢迎您，@Session["name"]</span>
                         </li>
                         <li>
                             <a href="/Home/Index"><i class=""></i> 首页</a>
@@ -53,6 +54,7 @@
             @RenderBody()
         </div>
     </div>
+
     <script src="/Content/INSPINIA/js/jquery-2.1.1.js" type="text/javascript"></script>
     <script src="/Content/INSPINIA/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="/Content/INSPINIA/js/plugins/metisMenu/jquery.metisMenu.js" type="text/javascript"></script>

@@ -3,42 +3,49 @@
 namespace OnlineExam.Model
 {
     /// <summary>
-	/// User:实体类
-	/// </summary>
-	[Serializable]
-    public partial class UserTable
+    /// TeacherTable:实体类
+    /// </summary>
+    [Serializable]
+    public partial class TeacherTable
     {
-        public UserTable()
+        public TeacherTable()
         { }
 
         #region Model
         private int id;
-        private string usertype;
         private string username;
         private string password;
-        
+        private string name;
+        private string sex;
+
         public int ID
         {
             set { id = value; }
             get { return id; }
         }
-        
-        public string UserType
-        {
-            set { usertype = value; }
-            get { return usertype; }
-        }
-        
+
         public string Username
         {
             set { username = value; }
             get { return username; }
         }
-        
+
         public string Password
         {
             set { password = value; }
             get { return password; }
+        }
+
+        public string Name
+        {
+            set { name = value; }
+            get { return name; }
+        }
+
+        public string Sex
+        {
+            set { sex = value; }
+            get { return sex; }
         }
         #endregion Model
 

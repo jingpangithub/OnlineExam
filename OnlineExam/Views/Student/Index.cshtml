@@ -1,0 +1,429 @@
+﻿<div class="row wrapper wrapper-content">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>学生信息管理</h5>
+        </div>
+        <div class="ibox-content">
+            <form id="form_search" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-1 control-label">
+                        专业
+                    </label>
+                    <div class="col-md-3">
+                        <select class="form-control" id="choose" name="choose">
+                            <option value="" selected>请选择..</option>
+                            <option value="计算机科学与技术">计算机科学与技术</option>
+                            <option value="网络工程">网络工程</option>
+                            <option value="软件工程">软件工程</option>
+                        </select>
+                    </div>
+                    <label class="col-md-1 control-label">
+                        账号
+                    </label>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" name="search">
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-md btn-primary" id="query">
+                            查询
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div class="hr-line-dashed">
+            </div>
+
+            <div class="row">
+                <h5 class="col-md-11"></h5>
+                <div class="col-md-1">
+                    <a class="btn btn-xs btn-primary" onclick="table.ajax.reload()">刷新</a>
+                    <a class="btn btn-xs btn-primary" onclick="CreateModel()">新建</a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <p id="ptest"></p>
+                <table id="student_table" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>账号</th>
+                            <th>密码</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>专业</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--新建窗口-->
+<div class="modal inmodal fade" id="model_create" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">
+                    新建学生
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="form_create" class="form-horizontal">
+                    <div class="form-group" id="warningtips" style="visibility:hidden;">
+                        <h5 class="col-sm-10 col-sm-offset-2" style="color:Red;"></h5>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            账号
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" id="create_username" name="Username" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            密码
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" id="create_password" name="Password" value="12345" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            姓名
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" id="create_name" name="Name" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            性别
+                        </label>
+                        <div class="col-sm-10">
+                            <select id="create_sex" name="Sex" class="form-control" required>
+                                <option value=""></option>
+                                <option>男</option>
+                                <option>女</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            专业
+                        </label>
+                        <div class="col-sm-10">
+                            <select id="create_major" name="Major" class="form-control" required>
+                                <option value=""></option>
+                                <option>计算机科学与技术</option>
+                                <option>网络工程</option>
+                                <option>软件工程</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">
+                    关闭
+                </button>
+                <button type="button" id="btn_submit" class="btn btn-primary">
+                    保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--修改窗口-->
+<div class="modal inmodal fade" id="model_update" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">
+                    修改
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="form_update" class="form-horizontal">
+                    <div class="form-group" id="warningtips" style="visibility:hidden;">
+                        <h5 class="col-sm-10 col-sm-offset-2" style="color:Red;"></h5>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10"><input id="update_id" type="hidden" name="ID" class="form-control"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            账号
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" id="update_username" name="Username" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            密码
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" id="update_password" name="Password" value="12345" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            姓名
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" id="update_name" name="Name" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            性别
+                        </label>
+                        <div class="col-sm-10">
+                            <select id="update_sex" name="Sex" class="form-control" required>
+                                <option value=""></option>
+                                <option>男</option>
+                                <option>女</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            专业
+                        </label>
+                        <div class="col-sm-10">
+                            <select id="update_major" name="Major" class="form-control" required>
+                                <option value=""></option>
+                                <option>计算机科学与技术</option>
+                                <option>网络工程</option>
+                                <option>软件工程</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">
+                    关闭
+                </button>
+                <button type="button" class="btn btn-primary" onclick="UpdateSubmit()">
+                    保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script {
+    <script>
+        var filter = " ";
+        var table = null;
+
+        $.extend($.validator.messages, { required: '该项不能为空' });
+
+        $(document).ready(function () {
+            table = $("#student_table").DataTable({
+                "pageLength": 10,
+                "lengthChange": false,
+                "processing": true,
+                "serverSide": true,
+                "ordering": false,
+                "dom": '< l < t > ip > ',
+                "ajax": function (tdata, callback, settings) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Student/AjaxList/" + filter,
+                        cache: false,
+                        data: tdata,
+                        dataType: "json",
+                        success: function (res) {
+                            if (res.result == 0) {
+                                toastr.warning(res.msg);
+                            } else if (res.result == 100) {
+                                location.href = "/Login/Index";
+                            } else {
+                                callback(res.data);
+                            }
+                        },
+                        error: function (XMLHttpRequest, txtStatus, errorThrown) {
+                            toastr.warning('查询失败，请重试');
+                        }
+                    });
+                },
+                "columns": [
+                    { data: "Username" },
+                    { data: "Password" },
+                    { data: "Name" },
+                    { data: "Sex" },
+                    { data: "Major" },
+                    {
+                        data: "ID",
+                        "render": function (data, type, row) {;
+                            var html;
+
+                            html = "<a class='btn btn-xs btn-primary' onclick='UpdateModel(" + data + ")'>修改</a>";
+                            html += "&nbsp;<a class='btn btn-xs btn-danger'onclick='DeleteModel(" + data + ")' >删除</a>";
+
+                            return html;
+                        }
+                    }
+                ],
+                "language": {
+                    "sProcessing": "处理中...",
+                    "sLengthMenu": "每页显示 _MENU_ 项结果",
+                    "sZeroRecords": "没有匹配结果",
+                    "sInfo": "当前显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty": "当前显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix": "",
+                    "sSearch": "关键字搜索:",
+                    "sUrl": "",
+                    "sEmptyTable": "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands": ",",
+                    "oPaginate": {
+                        "sFirst": "首页",
+                        "sPrevious": "上页",
+                        "sNext": "下页",
+                        "sLast": "末页"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": 以升序排列此列",
+                        "sSortDescending": ": 以降序排列此列"
+                    }
+                },
+                "buttons": []
+            })
+            $("#form_create").validate({});
+            $("#form_update").validate({});
+        });
+        //新建
+        function CreateModel() {
+            $("#model_create").modal('show');
+
+        }
+        var bs = $('#btn_submit').ladda();
+        bs.click(function () {
+            // todo form必填项验证
+            // jquery.validate.min.js
+            if (!$("#form_create").valid()) {
+                toastr.error("新建失败");
+                return false;
+            }
+            bs.ladda('start');
+            // todo ajax提交到服务器
+            $.post("/Student/Create", $("#form_create").serialize(), function (res) {
+                bs.ladda('stop');
+                if (res.result == 1) {
+                    table.ajax.reload();
+                    $("#model_create").modal('hide');
+                    $("#model_create").on("hidden.bs.modal", function () {
+                        $("input,select").val("");
+                    });
+                    toastr.success("新建成功");
+                } else if (res.result == 100) {
+                    location.href = "/Login/Index";
+                } else {
+                    toastr.warning("新建失败");
+                }
+            })
+        })
+        //修改
+        function UpdateModel(id) {
+            $.post("/Student/Info/" + id, null, function (res) {
+                if (res.result == 0) {
+                    toastr.error("所选择项不存在,请刷新后重试");
+                } else if (res.result == 100) {
+                    location.href = "/Login/Index";
+                } else {
+                    $("#update_username").val(res.data.Username);
+                    $("#update_password").val(res.data.Password);
+                    $("#update_name").val(res.data.Name);
+                    $("#update_sex").val(res.data.Sex);
+                    $("#update_major").val(res.data.Major);
+                    $("#update_id").val(res.data.ID);
+                }
+            })
+            $("#model_update").modal('show');
+        }
+
+        function UpdateSubmit(){
+            // todo form必填项验证
+            // jquery.validate.min.js
+            if (!$("#form_update").valid()) {
+                toastr.error("修改失败");
+                return false;
+            }
+            $.post("/Student/Update", $("#form_update").serialize(), function (res) {
+                if (res.result == 1) {
+                    table.ajax.reload();
+                    $("#model_update").modal('hide');
+                    toastr.success("修改成功");
+                    $("#model_update").on("hidden.bs.modal", function () {
+                        $("input,select").val("");
+                    });
+                } else if (res.result == 100) {
+                    location.href = "/Login/Index";
+                } else {
+                    toastr.error(res.msg);
+                }
+            });
+        }
+
+        //删除
+        function DeleteModel(model) {
+            swal({
+                title: "确定删除?",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "取消",
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                closeOnConfirm: false
+            }, function () {
+                //表单提交
+
+                $.post("/Student/Delete/" + model, null, function (res) {
+                    if (res.result == 0) {
+                        swal("删除失败!", "没用可供删除的数据", "error");
+                    } else if (res.result == 100) {
+                        location.href = "/Login/Index";
+                    } else {
+                        table.ajax.reload();
+                        swal("已删除!", "此条信息已移除", "success");
+                    }
+                });
+            });
+        }
+
+        //查询
+        function stringFilter(c, s) {
+            var choose = c ? c : "";
+            var search = s ? s : "";
+            filter = "?choose=" + choose + "$search=" + search;
+            table.ajax.reload();
+        }
+
+        $("#query").click(function () {
+            filter = "?" + $("#form_search").serialize();
+            table.ajax.reload();
+            return false;
+        });
+
+        $("#choose").change(function () {
+            choose = $(this).children("option:selected").val();
+            stringFilter(choose, null);
+        });
+    </script>
+}
+
