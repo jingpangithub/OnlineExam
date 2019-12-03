@@ -18,7 +18,7 @@
                         </select>
                     </div>
                     <label class="col-md-1 control-label">
-                        账号
+                        账号/姓名
                     </label>
                     <div class="col-md-2">
                         <input type="text" class="form-control" name="search">
@@ -410,7 +410,7 @@
         function stringFilter(c, s) {
             var choose = c ? c : "";
             var search = s ? s : "";
-            filter = "?choose=" + choose + "$search=" + search;
+            filter = "?choose=" + choose + "&search=" + search;
             table.ajax.reload();
         }
 
