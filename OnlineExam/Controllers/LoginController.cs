@@ -27,7 +27,10 @@ namespace OnlineExam.Controllers
         [Login(Feedback = -7)]
         public ActionResult Login(string Username, string Password)
         {
-            OnlineExam.BLL.UserTable bllUser = new OnlineExam.BLL.UserTable();
+            OnlineExam.BLL.AdminTable bllAdmin = new OnlineExam.BLL.AdminTable();
+            OnlineExam.BLL.TeacherTable bllTeacher = new OnlineExam.BLL.TeacherTable();
+            OnlineExam.BLL.StudentTable bllStudent = new OnlineExam.BLL.StudentTable();
+
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
             {
                 return this.Json(new { result = 0, data = "" });
@@ -35,20 +38,44 @@ namespace OnlineExam.Controllers
             // Password = encryptPwd(Password);
 
             string strSql = "Username='" + Username + "' and Password='" + Password + "'";
-            List<Model.UserTable> userList = bllUser.DataTableToList(bllUser.GetList(strSql).Tables[0]);
 
-            //authority
-            if (userList.Count > 0)
+            List<Model.AdminTable> adminList = bllAdmin.DataTableToList(bllAdmin.GetList(strSql).Tables[0]);
+            List<Model.TeacherTable> teacherList = bllTeacher.DataTableToList(bllTeacher.GetList(strSql).Tables[0]);
+            List<Model.StudentTable> studentList = bllStudent.DataTableToList(bllStudent.GetList(strSql).Tables[0]);
+
+            if(adminList.Count > 0)
             {
-                Model.UserTable userModel = userList[0];
-                string d = userModel.UserType;
+                Model.AdminTable adminModel = adminList[0];
+                strSql = "select * from AccessTable where ID = 1 or ID = 2 or ID = 3 or ID = 4 or ID = 5";
 
-                if (d.Equals("管理员"))
-                    strSql = "select * from AccessTable where ID = 1 union all select * from AccessTable where ID = 2";
-                if (d.Equals("教师"))
-                    strSql = "select * from AccessTable where ID = 1";
-                else
-                    strSql = "select * from AccessTable where ID = 1";
+                List<Model.AccessTable> tableList = new BLL.AccessTable().DataTableToList(DbHelperSQL.Query(strSql).Tables[0]);
+
+                //get granted table
+                string sessionString = "";
+                if (tableList.Count != 0)
+                {
+                    sessionString += "[";
+                    foreach (Model.AccessTable tableModel in tableList)
+                    {
+                        sessionString += new JavaScriptSerializer().Serialize(tableModel) + ",";
+                    }
+                    sessionString = sessionString.Remove(sessionString.Length - 1);
+                    sessionString += "]";
+                }
+                
+                //set session time out
+                Session.Timeout = 30;
+                Session["username"] = adminModel.Username;
+                Session["access"] = sessionString;
+                Session["name"] = adminModel.Name;
+                Session["type"] = "管理员";
+
+                return this.Json(new { result = 1, data = "" });
+            }
+            else if (teacherList.Count > 0)
+            {
+                Model.TeacherTable teacherModel = teacherList[0];
+                strSql = "select * from AccessTable where ID = 3 or ID = 4 or ID = 5";
 
                 List<Model.AccessTable> tableList = new BLL.AccessTable().DataTableToList(DbHelperSQL.Query(strSql).Tables[0]);
 
@@ -65,13 +92,44 @@ namespace OnlineExam.Controllers
                     sessionString += "]";
                 }
 
+                //set session time out
+                Session.Timeout = 30;
+                Session["username"] = teacherModel.Username;
+                Session["access"] = sessionString;
+                Session["name"] = teacherModel.Name;
+                Session["type"] = "教师";
+
+                return this.Json(new { result = 1, data = "" });
+            }
+            else if (studentList.Count > 0)
+            {
+                Model.StudentTable studentModel = studentList[0];
+                strSql = "select * from AccessTable where ID = 6 or ID = 7";
+
+                List<Model.AccessTable> tableList = new BLL.AccessTable().DataTableToList(DbHelperSQL.Query(strSql).Tables[0]);
+
+                //get granted table
+                string sessionString = "";
+                if (tableList.Count != 0)
+                {
+                    sessionString += "[";
+                    foreach (Model.AccessTable tableModel in tableList)
+                    {
+                        sessionString += new JavaScriptSerializer().Serialize(tableModel) + ",";
+                    }
+                    sessionString = sessionString.Remove(sessionString.Length - 1);
+                    sessionString += "]";
+                }
 
                 //set session time out
                 Session.Timeout = 30;
-                Session["username"] = userModel.Username;
+                Session["username"] = studentModel.Username;
                 Session["access"] = sessionString;
+                Session["name"] = studentModel.Name;
+                Session["type"] = "学生";
+
                 return this.Json(new { result = 1, data = "" });
-            }
+            }           
             else
             {
                 return this.Json(new { result = 0, data = "" });

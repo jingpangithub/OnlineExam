@@ -7,13 +7,13 @@ using OnlineExam.Model;
 namespace OnlineExam.BLL
 {
     /// <summary>
-	/// 业务逻辑类:UserTable
+	/// 业务逻辑类:TeacherTable
 	/// </summary>
-    public partial class UserTable
+    public partial class TeacherTable
     {
-        private readonly OnlineExam.DAL.UserTable dal = new OnlineExam.DAL.UserTable();
+        private readonly OnlineExam.DAL.TeacherTable dal = new OnlineExam.DAL.TeacherTable();
 
-        public UserTable()
+        public TeacherTable()
         { }
 
         #region  BasicMethod
@@ -28,7 +28,7 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 增加一条数据
         /// </summary>
-        public int Add(OnlineExam.Model.UserTable model)
+        public int Add(OnlineExam.Model.TeacherTable model)
         {
             return dal.Add(model);
         }
@@ -36,7 +36,7 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 更新一条数据
         /// </summary>
-        public bool Update(OnlineExam.Model.UserTable model)
+        public bool Update(OnlineExam.Model.TeacherTable model)
         {
             return dal.Update(model);
         }
@@ -60,7 +60,7 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 得到一个对象实体
         /// </summary>
-        public OnlineExam.Model.UserTable GetModel(int ID)
+        public OnlineExam.Model.TeacherTable GetModel(int ID)
         {
 
             return dal.GetModel(ID);
@@ -69,10 +69,10 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 得到一个对象实体，从缓存中
         /// </summary>
-        public OnlineExam.Model.UserTable GetModelByCache(int ID)
+        public OnlineExam.Model.TeacherTable GetModelByCache(int ID)
         {
 
-            string CacheKey = "UserModel-" + ID;
+            string CacheKey = "TeacherTableModel-" + ID;
             object objModel = Maticsoft.Common.DataCache.GetCache(CacheKey);
             if (objModel == null)
             {
@@ -87,7 +87,7 @@ namespace OnlineExam.BLL
                 }
                 catch { }
             }
-            return (OnlineExam.Model.UserTable)objModel;
+            return (OnlineExam.Model.TeacherTable)objModel;
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public List<OnlineExam.Model.UserTable> GetModelList(string strWhere)
+        public List<OnlineExam.Model.TeacherTable> GetModelList(string strWhere)
         {
             DataSet ds = dal.GetList(strWhere);
             return DataTableToList(ds.Tables[0]);
@@ -115,13 +115,13 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public List<OnlineExam.Model.UserTable> DataTableToList(DataTable dt)
+        public List<OnlineExam.Model.TeacherTable> DataTableToList(DataTable dt)
         {
-            List<OnlineExam.Model.UserTable> modelList = new List<OnlineExam.Model.UserTable>();
+            List<OnlineExam.Model.TeacherTable> modelList = new List<OnlineExam.Model.TeacherTable>();
             int rowsCount = dt.Rows.Count;
             if (rowsCount > 0)
             {
-                OnlineExam.Model.UserTable model;
+                OnlineExam.Model.TeacherTable model;
                 for (int n = 0; n < rowsCount; n++)
                 {
                     model = dal.DataRowToModel(dt.Rows[n]);
