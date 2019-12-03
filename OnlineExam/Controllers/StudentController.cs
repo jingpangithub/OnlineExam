@@ -31,9 +31,9 @@ namespace OnlineExam.Controllers
             string choose = Request.Params["choose"];
             string search = Request.Params["search"];
 
-            sqlString += String.IsNullOrEmpty(choose) ? "1 = 1" : ("Major='" + choose + "'");
+            sqlString += String.IsNullOrEmpty(choose) ? "1 = 1" : ("Major = N'" + choose + "'");
             sqlString += " AND ";
-            sqlString += String.IsNullOrEmpty(search) ? "1 = 1" : ("Username Like ('%" + search + "%')");
+            sqlString += String.IsNullOrEmpty(search) ? "1 = 1" : ("(Username Like ('%" + search + "%') or Name Like (N'%" + search + "%'))");
 
             start = Convert.ToInt32(Request.Params["start"]);
             length = Convert.ToInt32(Request.Params["length"]);
