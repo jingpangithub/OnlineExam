@@ -34,7 +34,7 @@ namespace OnlineExam.DAL
         /// <summary>
         /// 增加一条数据
         /// </summary>
-        public int Add(OnlineExam.Model.AdminTable model)
+        public int Add(Model.AdminTable model)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into AdminTable(");
@@ -62,10 +62,11 @@ namespace OnlineExam.DAL
                 return Convert.ToInt32(obj);
             }
         }
+
         /// <summary>
         /// 更新一条数据
         /// </summary>
-        public bool Update(OnlineExam.Model.AdminTable model)
+        public bool Update(Model.AdminTable model)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update AdminTable set ");
@@ -121,6 +122,7 @@ namespace OnlineExam.DAL
                 return false;
             }
         }
+
         /// <summary>
         /// 批量删除数据
         /// </summary>
@@ -144,7 +146,7 @@ namespace OnlineExam.DAL
         /// <summary>
         /// 得到一个对象实体
         /// </summary>
-        public OnlineExam.Model.AdminTable GetModel(int ID)
+        public Model.AdminTable GetModel(int ID)
         {
 
             StringBuilder strSql = new StringBuilder();
@@ -155,7 +157,7 @@ namespace OnlineExam.DAL
             };
             parameters[0].Value = ID;
 
-            OnlineExam.Model.AdminTable model = new OnlineExam.Model.AdminTable();
+            Model.AdminTable model = new Model.AdminTable();
             DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
             if (ds.Tables[0].Rows.Count > 0)
             {
@@ -171,9 +173,9 @@ namespace OnlineExam.DAL
         /// <summary>
         /// 得到一个对象实体
         /// </summary>
-        public OnlineExam.Model.AdminTable DataRowToModel(DataRow row)
+        public Model.AdminTable DataRowToModel(DataRow row)
         {
-            OnlineExam.Model.AdminTable model = new OnlineExam.Model.AdminTable();
+            Model.AdminTable model = new Model.AdminTable();
             if (row != null)
             {
                 if (row["ID"] != null && row["ID"].ToString() != "")
@@ -257,6 +259,7 @@ namespace OnlineExam.DAL
                 return Convert.ToInt32(obj);
             }
         }
+
         /// <summary>
         /// 分页获取数据列表
         /// </summary>
@@ -282,32 +285,6 @@ namespace OnlineExam.DAL
             strSql.AppendFormat(" WHERE TT.Row between {0} and {1}", startIndex, endIndex);
             return DbHelperSQL.Query(strSql.ToString());
         }
-
-        /*
-		/// <summary>
-		/// 分页获取数据列表
-		/// </summary>
-		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
-		{
-			SqlParameter[] parameters = {
-					new SqlParameter("@tblName", SqlDbType.VarChar, 255),
-					new SqlParameter("@fldName", SqlDbType.VarChar, 255),
-					new SqlParameter("@PageSize", SqlDbType.Int),
-					new SqlParameter("@PageIndex", SqlDbType.Int),
-					new SqlParameter("@IsReCount", SqlDbType.Bit),
-					new SqlParameter("@OrderType", SqlDbType.Bit),
-					new SqlParameter("@strWhere", SqlDbType.VarChar,1000),
-					};
-			parameters[0].Value = "AdminTable";
-			parameters[1].Value = "ID";
-			parameters[2].Value = PageSize;
-			parameters[3].Value = PageIndex;
-			parameters[4].Value = 0;
-			parameters[5].Value = 0;
-			parameters[6].Value = strWhere;	
-			return DbHelperSQL.RunProcedure("UP_GetRecordByPage",parameters,"ds");
-		}*/
-
         #endregion  BasicMethod
     }
 }

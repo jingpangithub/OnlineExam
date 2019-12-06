@@ -1,0 +1,297 @@
+﻿<div class="row wrapper wrapper-content">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>考中查看</h5>
+            <div class="ibox-tools">
+                <a class="btn btn-xs btn-primary" onclick="table.ajax.reload()">刷新</a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="ibox-content">
+                <p id="ptest"></p>
+                <table id="exam_table" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width:14%">所属教师</th>
+                            <th style="width:14%">所属专业</th>
+                            <th style="width:20%">开始时间</th>
+                            <th style="width:14%">持续时间</th>
+                            <th style="width:18%">考试文档</th>
+                            <th style="width:20%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal fade" id="model_update" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">
+                    修改考试
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="form_update" class="form-horizontal">
+                    <div class="form-group" id="warningtips" style="visibility:hidden;">
+                        <h5 class="col-sm-10 col-sm-offset-2" style="color:Red;"></h5>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10"><input id="update_id" type="hidden" name="ID" class="form-control"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            所属教师
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" id="update_teacher" name="Teacher" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            所属专业
+                        </label>
+                        <div class="col-sm-10">
+                            <select id="update_major" name="Major" class="form-control" required>
+                                <option value=""></option>
+                                <option>计算机科学与技术</option>
+                                <option>网络工程</option>
+                                <option>软件工程</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            开始时间
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" id="update_start" name="Start" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            持续时间
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" id="update_last" name="Last" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            考试文档
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" id="upload_file" name="FilePath" class="form-control">
+                            <div class="uploader-thum-container">
+                                <input type="file" id="uFile" name="ufile" onchange="Filepath(this.id,'ufile','upload_file');" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">
+                    关闭
+                </button>
+                <button type="button" class="btn btn-primary" onclick="UpdateSubmit()">
+                    保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="p-w-md m-t-sm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="flot-chart m-b-xl">
+                    <div class="flot-chart-content" id="detail" style="height:300px;visibility:hidden"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script {
+    <script>
+        var filter = " ";
+        var table = null;
+
+        $.extend($.validator.messages, { required: '该项不能为空' });
+
+        $(document).ready(function () {
+            table = $("#exam_table").DataTable({
+                "pageLength": 10,
+                "lengthChange": false,
+                "processing": true,
+                "serverSide": true,
+                "ordering": false,
+                "dom": '< l < t > ip >',
+                "ajax": function (tdata, callback, settings) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/ExamCheck/AjaxList/" + filter,
+                        cache: false,
+                        data: tdata,
+                        dataType: "json",
+                        success: function (res) {
+                            if (res.result == 0) {
+                                toastr.warning(res.msg);
+                            } else if (res.result == 100) {
+                                location.href = "/Login/Index";
+                            } else {
+                                callback(res.data);
+                            }
+                        },
+                        error: function (XMLHttpRequest, txtStatus, errorThrown) {
+                            toastr.warning('查询失败，请重试');
+                        }
+                    });
+                },
+                "columns": [
+                    { data: "Teacher" },
+                    { data: "Major" },
+                    { data: "Start" },
+                    { data: "Last" },
+                    {
+                        data: "Filepath", "render": function (data, type, row) {
+                            if (data)
+                                return "<a download='file' href=" + data + " target='_blank'>" + data + "</a>";
+                            else
+                                return "无";
+                        }
+                    },
+                    {
+                        data: "ID",
+                        "render": function (data, type, row) {;
+                            var html;
+
+                            html = "<a class='btn btn-xs btn-primary' onclick='DetailModel(" + data + ")'>详细情况</a>";
+                            html += "&nbsp;<a class='btn btn-xs btn-primary'onclick='NoticeModel(" + data + ")' >发布通知</a>";
+                            html += "&nbsp;<a class='btn btn-xs btn-danger'onclick='EndModel(" + data + ")' >结束</a>";
+
+                            return html;
+                        }
+                    }
+                ],
+                "language": {
+                    "sProcessing": "处理中...",
+                    "sLengthMenu": "每页显示 _MENU_ 项结果",
+                    "sZeroRecords": "没有匹配结果",
+                    "sInfo": "当前显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty": "当前显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix": "",
+                    "sSearch": "关键字搜索:",
+                    "sUrl": "",
+                    "sEmptyTable": "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands": ",",
+                    "oPaginate": {
+                        "sFirst": "首页",
+                        "sPrevious": "上页",
+                        "sNext": "下页",
+                        "sLast": "末页"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": 以升序排列此列",
+                        "sSortDescending": ": 以降序排列此列"
+                    }
+                },
+                "buttons": []
+            })
+        });
+
+        function DetailModel() {
+            $("#detail").css('visibility', 'visible');
+        }
+
+        $(document).ready(function () {
+            var jsonString = ("@ViewBag.BigData").replace(/&quot;/g,"\"");
+            var tArray = jQuery.parseJSON(jsonString);
+            var myChart = echarts.init(document.getElementById('detail'));
+
+            var option = {
+                color: ['#3398DB'],
+                title: {
+                    text: '上机考试管理系统'
+                },
+                tooltip: {},
+                legend: {
+                    data: ['数据']
+                },
+                xAxis: {
+                    data: tArray.map(item => { return item.name }),
+                    axisLabel: {
+                        interval: 0,
+                        rotate: 40
+                    }
+                },
+                grid: {
+                    left: '10%',
+                    bottom: '35%'
+                },
+                yAxis: {},
+                series: [{
+                    name: '数据',
+                    type: 'bar',
+                    data: tArray.map(item => { return item.rows })
+                }]
+            };
+
+            myChart.setOption(option);
+        });
+
+        function NoticeModel() {
+
+        }
+
+        function EndModel(id) {
+            $.post("/ExamCheck/Info/" + id, null, function (res) {
+                if (res.result == 0) {
+                    toastr.error("所选择项不存在,请刷新后重试");
+                } else if (res.result == 100) {
+                    location.href = "/Login/Index";
+                } else {
+                    $("#update_teacher").val(res.data.Teacher);
+                    $("#update_major").val(res.data.Major);
+                    $("#update_start").val(res.data.Start);
+                    $("#update_last").val(res.data.Last);
+                    $("#update_filepath").val(res.data.Filepath);
+                    $("#update_id").val(res.data.ID);
+                }
+            })
+
+            swal({
+                title: "提前结束此考试?",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "取消",
+                confirmButtonText: "确认",
+                closeOnConfirm: false
+            }, function () {
+                $.post("/ExamCheck/End", $("#form_update").serialize(), function (res) {
+                    if (res.result == 1) {
+                        table.ajax.reload();
+                        swal("考试已结束", "", "success");
+                    } else if (res.result == 100) {
+                        location.href = "/Login/Index";
+                    } else {
+                        toastr.error(res.msg);
+                    }
+                });
+            });
+        }
+    </script>
+}
+
+

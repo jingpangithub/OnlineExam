@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Specialized;
 using System.Data;
 using MySql.Data.MySqlClient;
-using System.Configuration;
-using System.Data.Common;
 using System.Collections.Generic;
 namespace Maticsoft.DBUtility
 {
@@ -114,7 +111,7 @@ namespace Maticsoft.DBUtility
                         int rows = cmd.ExecuteNonQuery();
                         return rows;
                     }
-                    catch (MySql.Data.MySqlClient.MySqlException e)
+                    catch (MySqlException e)
                     {
                         connection.Close();
                         throw e;
@@ -136,7 +133,7 @@ namespace Maticsoft.DBUtility
                         int rows = cmd.ExecuteNonQuery();
                         return rows;
                     }
-                    catch (MySql.Data.MySqlClient.MySqlException e)
+                    catch (MySqlException e)
                     {
                         connection.Close();
                         throw e;
@@ -240,7 +237,7 @@ namespace Maticsoft.DBUtility
                     tx.Commit();
                     return 1;
                 }
-                catch (MySql.Data.MySqlClient.MySqlException e)
+                catch (MySqlException e)
                 {
                     tx.Rollback();
                     throw e;
@@ -298,7 +295,7 @@ namespace Maticsoft.DBUtility
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 MySqlCommand cmd = new MySqlCommand(SQLString, connection);
-                MySql.Data.MySqlClient.MySqlParameter myParameter = new MySql.Data.MySqlClient.MySqlParameter("@content", SqlDbType.NText);
+                MySqlParameter myParameter = new MySqlParameter("@content", SqlDbType.NText);
                 myParameter.Value = content;
                 cmd.Parameters.Add(myParameter);
                 try
@@ -307,7 +304,7 @@ namespace Maticsoft.DBUtility
                     int rows = cmd.ExecuteNonQuery();
                     return rows;
                 }
-                catch (MySql.Data.MySqlClient.MySqlException e)
+                catch (MySqlException e)
                 {
                     throw e;
                 }
@@ -329,7 +326,7 @@ namespace Maticsoft.DBUtility
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 MySqlCommand cmd = new MySqlCommand(SQLString, connection);
-                MySql.Data.MySqlClient.MySqlParameter myParameter = new MySql.Data.MySqlClient.MySqlParameter("@content", SqlDbType.NText);
+                MySqlParameter myParameter = new MySqlParameter("@content", SqlDbType.NText);
                 myParameter.Value = content;
                 cmd.Parameters.Add(myParameter);
                 try
@@ -345,7 +342,7 @@ namespace Maticsoft.DBUtility
                         return obj;
                     }
                 }
-                catch (MySql.Data.MySqlClient.MySqlException e)
+                catch (MySqlException e)
                 {
                     throw e;
                 }
@@ -367,7 +364,7 @@ namespace Maticsoft.DBUtility
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 MySqlCommand cmd = new MySqlCommand(strSQL, connection);
-                MySql.Data.MySqlClient.MySqlParameter myParameter = new MySql.Data.MySqlClient.MySqlParameter("@fs", SqlDbType.Image);
+                MySqlParameter myParameter = new MySqlParameter("@fs", SqlDbType.Image);
                 myParameter.Value = fs;
                 cmd.Parameters.Add(myParameter);
                 try
@@ -376,7 +373,7 @@ namespace Maticsoft.DBUtility
                     int rows = cmd.ExecuteNonQuery();
                     return rows;
                 }
-                catch (MySql.Data.MySqlClient.MySqlException e)
+                catch (MySqlException e)
                 {
                     throw e;
                 }
@@ -412,7 +409,7 @@ namespace Maticsoft.DBUtility
                             return obj;
                         }
                     }
-                    catch (MySql.Data.MySqlClient.MySqlException e)
+                    catch (MySqlException e)
                     {
                         connection.Close();
                         throw e;
@@ -440,7 +437,7 @@ namespace Maticsoft.DBUtility
                             return obj;
                         }
                     }
-                    catch (MySql.Data.MySqlClient.MySqlException e)
+                    catch (MySqlException e)
                     {
                         connection.Close();
                         throw e;
@@ -463,7 +460,7 @@ namespace Maticsoft.DBUtility
                 MySqlDataReader myReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 return myReader;
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (MySqlException e)
             {
                 throw e;
             }   
@@ -485,7 +482,7 @@ namespace Maticsoft.DBUtility
                     MySqlDataAdapter command = new MySqlDataAdapter(SQLString, connection);
                     command.Fill(ds, "ds");
                 }
-                catch (MySql.Data.MySqlClient.MySqlException ex)
+                catch (MySqlException ex)
                 {
                     throw new Exception(ex.Message);
                 }
@@ -504,7 +501,7 @@ namespace Maticsoft.DBUtility
                     command.SelectCommand.CommandTimeout = Times;
                     command.Fill(ds, "ds");
                 }
-                catch (MySql.Data.MySqlClient.MySqlException ex)
+                catch (MySqlException ex)
                 {
                     throw new Exception(ex.Message);
                 }
@@ -536,7 +533,7 @@ namespace Maticsoft.DBUtility
                         cmd.Parameters.Clear();
                         return rows;
                     }
-                    catch (MySql.Data.MySqlClient.MySqlException e)
+                    catch (MySqlException e)
                     {
                         throw e;
                     }
@@ -582,7 +579,7 @@ namespace Maticsoft.DBUtility
         /// 执行多条SQL语句，实现数据库事务。
         /// </summary>
         /// <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的MySqlParameter[]）</param>
-        public static int ExecuteSqlTran(System.Collections.Generic.List<CommandInfo> cmdList)
+        public static int ExecuteSqlTran(List<CommandInfo> cmdList)
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -651,7 +648,7 @@ namespace Maticsoft.DBUtility
         /// 执行多条SQL语句，实现数据库事务。
         /// </summary>
         /// <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的MySqlParameter[]）</param>
-        public static void ExecuteSqlTranWithIndentity(System.Collections.Generic.List<CommandInfo> SQLStringList)
+        public static void ExecuteSqlTranWithIndentity(List<CommandInfo> SQLStringList)
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -768,7 +765,7 @@ namespace Maticsoft.DBUtility
                             return obj;
                         }
                     }
-                    catch (MySql.Data.MySqlClient.MySqlException e)
+                    catch (MySqlException e)
                     {
                         throw e;
                     }
@@ -792,7 +789,7 @@ namespace Maticsoft.DBUtility
                 cmd.Parameters.Clear();
                 return myReader;
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (MySqlException e)
             {
                 throw e;
             }
@@ -823,7 +820,7 @@ namespace Maticsoft.DBUtility
                         da.Fill(ds, "ds");
                         cmd.Parameters.Clear();
                     }
-                    catch (MySql.Data.MySqlClient.MySqlException ex)
+                    catch (MySqlException ex)
                     {
                         throw new Exception(ex.Message);
                     }

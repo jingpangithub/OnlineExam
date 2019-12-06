@@ -86,12 +86,12 @@
                 return false;
             }
             $.ajax({
-                type: "POST",       //类型
-                url: "/Login/Login", //服务器地址
+                type: "POST",       
+                url: "/Login/Login", 
                 cache: false,
-                data: "Username=" + $("#Username").val() + "&Password=" + $("#Password").val(),   //发送给服务器的数据
+                data: "Username=" + $("#Username").val() + "&Password=" + $("#Password").val(), 
                 dataType: "json",
-                success: function (res) {      //成功时触发的执行函数
+                success: function (res) {      
                     if (res.result == 0) {
                         toastr.warning('登录失败，用户名或密码有误');
                         return false;
@@ -100,7 +100,7 @@
                     } else {
                         window.location.href = "../Home/Index";
                         toastr.success("登录成功");
-                        callback(res.data);    //返回查询结果值
+                        callback(res.data);    
                     }
                 }
             });

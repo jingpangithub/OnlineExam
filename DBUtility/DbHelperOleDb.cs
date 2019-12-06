@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Specialized;
 using System.Data;
 using System.Data.OleDb;
-using System.Configuration;
 
 namespace Maticsoft.DBUtility
 {
@@ -100,7 +98,7 @@ namespace Maticsoft.DBUtility
                         int rows = cmd.ExecuteNonQuery();
                         return rows;
                     }
-                    catch (System.Data.OleDb.OleDbException E)
+                    catch (OleDbException E)
                     {
                         connection.Close();
                         throw new Exception(E.Message);
@@ -135,7 +133,7 @@ namespace Maticsoft.DBUtility
                     }
                     tx.Commit();
                 }
-                catch (System.Data.OleDb.OleDbException E)
+                catch (OleDbException E)
                 {
                     tx.Rollback();
                     throw new Exception(E.Message);
@@ -153,7 +151,7 @@ namespace Maticsoft.DBUtility
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
                 OleDbCommand cmd = new OleDbCommand(SQLString, connection);
-                System.Data.OleDb.OleDbParameter myParameter = new System.Data.OleDb.OleDbParameter("@content", OleDbType.VarChar);
+                OleDbParameter myParameter = new OleDbParameter("@content", OleDbType.VarChar);
                 myParameter.Value = content;
                 cmd.Parameters.Add(myParameter);
                 try
@@ -162,7 +160,7 @@ namespace Maticsoft.DBUtility
                     int rows = cmd.ExecuteNonQuery();
                     return rows;
                 }
-                catch (System.Data.OleDb.OleDbException E)
+                catch (OleDbException E)
                 {
                     throw new Exception(E.Message);
                 }
@@ -184,7 +182,7 @@ namespace Maticsoft.DBUtility
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
                 OleDbCommand cmd = new OleDbCommand(strSQL, connection);
-                System.Data.OleDb.OleDbParameter myParameter = new System.Data.OleDb.OleDbParameter("@fs", OleDbType.Binary);
+                OleDbParameter myParameter = new OleDbParameter("@fs", OleDbType.Binary);
                 myParameter.Value = fs;
                 cmd.Parameters.Add(myParameter);
                 try
@@ -193,7 +191,7 @@ namespace Maticsoft.DBUtility
                     int rows = cmd.ExecuteNonQuery();
                     return rows;
                 }
-                catch (System.Data.OleDb.OleDbException E)
+                catch (OleDbException E)
                 {
                     throw new Exception(E.Message);
                 }
@@ -229,7 +227,7 @@ namespace Maticsoft.DBUtility
                             return obj;
                         }
                     }
-                    catch (System.Data.OleDb.OleDbException e)
+                    catch (OleDbException e)
                     {
                         connection.Close();
                         throw new Exception(e.Message);
@@ -252,7 +250,7 @@ namespace Maticsoft.DBUtility
                 OleDbDataReader myReader = cmd.ExecuteReader();
                 return myReader;
             }
-            catch (System.Data.OleDb.OleDbException e)
+            catch (OleDbException e)
             {
                 throw new Exception(e.Message);
             }
@@ -274,7 +272,7 @@ namespace Maticsoft.DBUtility
                     OleDbDataAdapter command = new OleDbDataAdapter(SQLString, connection);
                     command.Fill(ds, "ds");
                 }
-                catch (System.Data.OleDb.OleDbException ex)
+                catch (OleDbException ex)
                 {
                     throw new Exception(ex.Message);
                 }
@@ -305,7 +303,7 @@ namespace Maticsoft.DBUtility
                         cmd.Parameters.Clear();
                         return rows;
                     }
-                    catch (System.Data.OleDb.OleDbException E)
+                    catch (OleDbException E)
                     {
                         throw new Exception(E.Message);
                     }
@@ -375,7 +373,7 @@ namespace Maticsoft.DBUtility
                             return obj;
                         }
                     }
-                    catch (System.Data.OleDb.OleDbException e)
+                    catch (OleDbException e)
                     {
                         throw new Exception(e.Message);
                     }
@@ -399,7 +397,7 @@ namespace Maticsoft.DBUtility
                 cmd.Parameters.Clear();
                 return myReader;
             }
-            catch (System.Data.OleDb.OleDbException e)
+            catch (OleDbException e)
             {
                 throw new Exception(e.Message);
             }
@@ -425,7 +423,7 @@ namespace Maticsoft.DBUtility
                         da.Fill(ds, "ds");
                         cmd.Parameters.Clear();
                     }
-                    catch (System.Data.OleDb.OleDbException ex)
+                    catch (OleDbException ex)
                     {
                         throw new Exception(ex.Message);
                     }

@@ -155,6 +155,11 @@
     <Compile Include="Codes\LoginAttribute.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ExamCheckController.cs" />
+    <Compile Include="Controllers\ExamEndController.cs" />
+    <Compile Include="Controllers\ExamLookController.cs" />
+    <Compile Include="Controllers\ExamStartController.cs" />
+    <Compile Include="Controllers\ExamTakeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
@@ -382,7 +387,6 @@
     <Content Include="Content\INSPINIA\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\INSPINIA\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\INSPINIA\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\INSPINIA\img\0.jpeg" />
     <Content Include="Content\INSPINIA\img\addFeedBack.png" />
     <Content Include="Content\INSPINIA\js\ajaxfileupload.js" />
     <Content Include="Content\INSPINIA\js\bootstrap.js" />
@@ -566,8 +570,15 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Teacher\Index.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\ExamStart\Index.cshtml" />
+    <Content Include="Views\ExamEnd\Index.cshtml" />
+    <Content Include="Views\ExamTake\Index.cshtml" />
+    <Content Include="Views\ExamLook\Index.cshtml" />
+    <Content Include="Views\ExamCheck\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AnswerFile\" />
+    <Folder Include="ExamFile\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

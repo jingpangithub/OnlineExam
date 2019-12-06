@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Specialized;
 using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
-using System.Data.Common;
 using System.Collections.Generic;
 namespace Maticsoft.DBUtility
 {
@@ -145,7 +142,7 @@ namespace Maticsoft.DBUtility
                         int rows = cmd.ExecuteNonQuery();
                         return rows;
                     }
-                    catch (System.Data.SqlClient.SqlException e)
+                    catch (SqlException e)
                     {
                         connection.Close();
                         throw e;
@@ -167,7 +164,7 @@ namespace Maticsoft.DBUtility
                         int rows = cmd.ExecuteNonQuery();
                         return rows;
                     }
-                    catch (System.Data.SqlClient.SqlException e)
+                    catch (SqlException e)
                     {
                         connection.Close();
                         throw e;
@@ -271,7 +268,7 @@ namespace Maticsoft.DBUtility
                     tx.Commit();
                     return 1;
                 }
-                catch (System.Data.SqlClient.SqlException e)
+                catch (SqlException e)
                 {
                     tx.Rollback();
                     throw e;
@@ -329,7 +326,7 @@ namespace Maticsoft.DBUtility
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(SQLString, connection);
-                System.Data.SqlClient.SqlParameter myParameter = new System.Data.SqlClient.SqlParameter("@content", SqlDbType.NText);
+                SqlParameter myParameter = new SqlParameter("@content", SqlDbType.NText);
                 myParameter.Value = content;
                 cmd.Parameters.Add(myParameter);
                 try
@@ -338,7 +335,7 @@ namespace Maticsoft.DBUtility
                     int rows = cmd.ExecuteNonQuery();
                     return rows;
                 }
-                catch (System.Data.SqlClient.SqlException e)
+                catch (SqlException e)
                 {
                     throw e;
                 }
@@ -360,7 +357,7 @@ namespace Maticsoft.DBUtility
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(SQLString, connection);
-                System.Data.SqlClient.SqlParameter myParameter = new System.Data.SqlClient.SqlParameter("@content", SqlDbType.NText);
+                SqlParameter myParameter = new SqlParameter("@content", SqlDbType.NText);
                 myParameter.Value = content;
                 cmd.Parameters.Add(myParameter);
                 try
@@ -376,7 +373,7 @@ namespace Maticsoft.DBUtility
                         return obj;
                     }
                 }
-                catch (System.Data.SqlClient.SqlException e)
+                catch (SqlException e)
                 {
                     throw e;
                 }
@@ -398,7 +395,7 @@ namespace Maticsoft.DBUtility
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(strSQL, connection);
-                System.Data.SqlClient.SqlParameter myParameter = new System.Data.SqlClient.SqlParameter("@fs", SqlDbType.Image);
+                SqlParameter myParameter = new SqlParameter("@fs", SqlDbType.Image);
                 myParameter.Value = fs;
                 cmd.Parameters.Add(myParameter);
                 try
@@ -407,7 +404,7 @@ namespace Maticsoft.DBUtility
                     int rows = cmd.ExecuteNonQuery();
                     return rows;
                 }
-                catch (System.Data.SqlClient.SqlException e)
+                catch (SqlException e)
                 {
                     throw e;
                 }
@@ -443,7 +440,7 @@ namespace Maticsoft.DBUtility
                             return obj;
                         }
                     }
-                    catch (System.Data.SqlClient.SqlException e)
+                    catch (SqlException e)
                     {
                         connection.Close();
                         throw e;
@@ -471,7 +468,7 @@ namespace Maticsoft.DBUtility
                             return obj;
                         }
                     }
-                    catch (System.Data.SqlClient.SqlException e)
+                    catch (SqlException e)
                     {
                         connection.Close();
                         throw e;
@@ -494,7 +491,7 @@ namespace Maticsoft.DBUtility
                 SqlDataReader myReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 return myReader;
             }
-            catch (System.Data.SqlClient.SqlException e)
+            catch (SqlException e)
             {
                 throw e;
             }   
@@ -516,7 +513,7 @@ namespace Maticsoft.DBUtility
                     SqlDataAdapter command = new SqlDataAdapter(SQLString, connection);
                     command.Fill(ds, "ds");
                 }
-                catch (System.Data.SqlClient.SqlException ex)
+                catch (SqlException ex)
                 {
                     throw new Exception(ex.Message);
                 }
@@ -535,7 +532,7 @@ namespace Maticsoft.DBUtility
                     command.SelectCommand.CommandTimeout = Times;
                     command.Fill(ds, "ds");
                 }
-                catch (System.Data.SqlClient.SqlException ex)
+                catch (SqlException ex)
                 {
                     throw new Exception(ex.Message);
                 }
@@ -567,7 +564,7 @@ namespace Maticsoft.DBUtility
                         cmd.Parameters.Clear();
                         return rows;
                     }
-                    catch (System.Data.SqlClient.SqlException e)
+                    catch (SqlException e)
                     {
                         throw e;
                     }
@@ -613,7 +610,7 @@ namespace Maticsoft.DBUtility
         /// 执行多条SQL语句，实现数据库事务。
         /// </summary>
         /// <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
-        public int ExecuteSqlTran(System.Collections.Generic.List<CommandInfo> cmdList)
+        public int ExecuteSqlTran(List<CommandInfo> cmdList)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -682,7 +679,7 @@ namespace Maticsoft.DBUtility
         /// 执行多条SQL语句，实现数据库事务。
         /// </summary>
         /// <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
-        public void ExecuteSqlTranWithIndentity(System.Collections.Generic.List<CommandInfo> SQLStringList)
+        public void ExecuteSqlTranWithIndentity(List<CommandInfo> SQLStringList)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -799,7 +796,7 @@ namespace Maticsoft.DBUtility
                             return obj;
                         }
                     }
-                    catch (System.Data.SqlClient.SqlException e)
+                    catch (SqlException e)
                     {
                         throw e;
                     }
@@ -823,7 +820,7 @@ namespace Maticsoft.DBUtility
                 cmd.Parameters.Clear();
                 return myReader;
             }
-            catch (System.Data.SqlClient.SqlException e)
+            catch (SqlException e)
             {
                 throw e;
             }
@@ -854,7 +851,7 @@ namespace Maticsoft.DBUtility
                         da.Fill(ds, "ds");
                         cmd.Parameters.Clear();
                     }
-                    catch (System.Data.SqlClient.SqlException ex)
+                    catch (SqlException ex)
                     {
                         throw new Exception(ex.Message);
                     }

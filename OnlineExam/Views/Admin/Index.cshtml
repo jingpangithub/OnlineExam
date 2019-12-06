@@ -48,7 +48,6 @@
     </div>
 </div>
 
-<!--新建窗口-->
 <div class="modal inmodal fade" id="model_create" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -115,7 +114,6 @@
     </div>
 </div>
 
-<!--修改窗口-->
 <div class="modal inmodal fade" id="model_update" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -268,21 +266,19 @@
             $("#form_create").validate({});
             $("#form_update").validate({});
         });
-        //新建
+        
         function CreateModel() {
             $("#model_create").modal('show');
 
         }
         var bs = $('#btn_submit').ladda();
         bs.click(function () {
-            // todo form必填项验证
-            // jquery.validate.min.js
             if (!$("#form_create").valid()) {
                 toastr.error("新建失败");
                 return false;
             }
             bs.ladda('start');
-            // todo ajax提交到服务器
+            
             $.post("/Admin/Create", $("#form_create").serialize(), function (res) {
                 bs.ladda('stop');
                 if (res.result == 1) {
@@ -299,7 +295,7 @@
                 }
             })
         })
-        //修改
+        
         function UpdateModel(id) {
             $.post("/Admin/Info/" + id, null, function (res) {
                 if (res.result == 0) {
@@ -318,8 +314,6 @@
         }
 
         function UpdateSubmit(){
-            // todo form必填项验证
-            // jquery.validate.min.js
             if (!$("#form_update").valid()) {
                 toastr.error("修改失败");
                 return false;
@@ -340,7 +334,6 @@
             });
         }           
         
-        //删除
         function DeleteModel(model) {
             swal({
                 title: "确定删除?",
@@ -351,8 +344,6 @@
                 confirmButtonText: "确认",
                 closeOnConfirm: false
             }, function () {
-                //表单提交
-
                 $.post("/Admin/Delete/" + model, null, function (res) {
                     if (res.result == 0) {
                         swal("删除失败!", "没用可供删除的数据", "error");
@@ -366,7 +357,6 @@
             });
         }
 
-        //查询
         $("#query").click(function () {
             filter = "?" + $("#form_search").serialize();
             table.ajax.reload();
