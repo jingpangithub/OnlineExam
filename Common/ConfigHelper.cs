@@ -56,6 +56,7 @@ namespace Maticsoft.Common
             }
             return result;
         }
+
         /// <summary>
         /// 得到AppSettings中的配置Decimal信息
         /// </summary>
@@ -79,6 +80,7 @@ namespace Maticsoft.Common
 
             return result;
         }
+
         /// <summary>
         /// 得到AppSettings中的配置int信息
         /// </summary>

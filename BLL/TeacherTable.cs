@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Collections.Generic;
-using Maticsoft.Common;
-using OnlineExam.Model;
 
 namespace OnlineExam.BLL
 {
@@ -11,7 +9,7 @@ namespace OnlineExam.BLL
 	/// </summary>
     public partial class TeacherTable
     {
-        private readonly OnlineExam.DAL.TeacherTable dal = new OnlineExam.DAL.TeacherTable();
+        private readonly DAL.TeacherTable dal = new DAL.TeacherTable();
 
         public TeacherTable()
         { }
@@ -28,7 +26,7 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 增加一条数据
         /// </summary>
-        public int Add(OnlineExam.Model.TeacherTable model)
+        public int Add(Model.TeacherTable model)
         {
             return dal.Add(model);
         }
@@ -36,7 +34,7 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 更新一条数据
         /// </summary>
-        public bool Update(OnlineExam.Model.TeacherTable model)
+        public bool Update(Model.TeacherTable model)
         {
             return dal.Update(model);
         }
@@ -49,6 +47,7 @@ namespace OnlineExam.BLL
 
             return dal.Delete(ID);
         }
+
         /// <summary>
         /// 删除一条数据
         /// </summary>
@@ -60,7 +59,7 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 得到一个对象实体
         /// </summary>
-        public OnlineExam.Model.TeacherTable GetModel(int ID)
+        public Model.TeacherTable GetModel(int ID)
         {
 
             return dal.GetModel(ID);
@@ -69,7 +68,7 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 得到一个对象实体，从缓存中
         /// </summary>
-        public OnlineExam.Model.TeacherTable GetModelByCache(int ID)
+        public Model.TeacherTable GetModelByCache(int ID)
         {
 
             string CacheKey = "TeacherTableModel-" + ID;
@@ -87,7 +86,7 @@ namespace OnlineExam.BLL
                 }
                 catch { }
             }
-            return (OnlineExam.Model.TeacherTable)objModel;
+            return (Model.TeacherTable)objModel;
         }
 
         /// <summary>
@@ -97,6 +96,7 @@ namespace OnlineExam.BLL
         {
             return dal.GetList(strWhere);
         }
+
         /// <summary>
         /// 获得前几行数据
         /// </summary>
@@ -104,24 +104,26 @@ namespace OnlineExam.BLL
         {
             return dal.GetList(Top, strWhere, filedOrder);
         }
+
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public List<OnlineExam.Model.TeacherTable> GetModelList(string strWhere)
+        public List<Model.TeacherTable> GetModelList(string strWhere)
         {
             DataSet ds = dal.GetList(strWhere);
             return DataTableToList(ds.Tables[0]);
         }
+
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public List<OnlineExam.Model.TeacherTable> DataTableToList(DataTable dt)
+        public List<Model.TeacherTable> DataTableToList(DataTable dt)
         {
-            List<OnlineExam.Model.TeacherTable> modelList = new List<OnlineExam.Model.TeacherTable>();
+            List<Model.TeacherTable> modelList = new List<Model.TeacherTable>();
             int rowsCount = dt.Rows.Count;
             if (rowsCount > 0)
             {
-                OnlineExam.Model.TeacherTable model;
+                Model.TeacherTable model;
                 for (int n = 0; n < rowsCount; n++)
                 {
                     model = dal.DataRowToModel(dt.Rows[n]);
@@ -149,6 +151,7 @@ namespace OnlineExam.BLL
         {
             return dal.GetRecordCount(strWhere);
         }
+
         /// <summary>
         /// 分页获取数据列表
         /// </summary>
@@ -156,14 +159,6 @@ namespace OnlineExam.BLL
         {
             return dal.GetListByPage(strWhere, orderby, startIndex, endIndex);
         }
-        /// <summary>
-        /// 分页获取数据列表
-        /// </summary>
-        //public DataSet GetList(int PageSize,int PageIndex,string strWhere)
-        //{
-        //return dal.GetList(PageSize,PageIndex,strWhere);
-        //}
-
         #endregion  BasicMethod
     }
 }

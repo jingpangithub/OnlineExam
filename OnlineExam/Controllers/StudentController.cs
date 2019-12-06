@@ -1,22 +1,17 @@
 ﻿using OnlineExam.Codes;
-using OnlineExam.Common;
-using Maticsoft.DBUtility;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 
 namespace OnlineExam.Controllers
 {
     [Login]
     public class StudentController : BaseController
     {
-        OnlineExam.BLL.StudentTable student = new OnlineExam.BLL.StudentTable();
+        BLL.StudentTable student = new BLL.StudentTable();
 
-        // GET: Student
         public override ActionResult Index()
         {
             return View();
@@ -24,8 +19,8 @@ namespace OnlineExam.Controllers
 
         public override ActionResult AjaxList()
         {
-            int start = 0;  // 分页起始条目数
-            int length = 0; // 分页每页分页数
+            int start = 0;  
+            int length = 0; 
 
             string sqlString = "";
             string choose = Request.Params["choose"];
@@ -38,7 +33,7 @@ namespace OnlineExam.Controllers
             start = Convert.ToInt32(Request.Params["start"]);
             length = Convert.ToInt32(Request.Params["length"]);
 
-            List<OnlineExam.Model.StudentTable> list = student.DataTableToList(student.GetListByPage(sqlString, "", start + 1, start + length).Tables[0]);
+            List<Model.StudentTable> list = student.DataTableToList(student.GetListByPage(sqlString, "", start + 1, start + length).Tables[0]);
             int total = student.GetRecordCount("");
             int totalFilter = student.GetRecordCount(sqlString);
 
@@ -76,8 +71,8 @@ namespace OnlineExam.Controllers
                 {
                     result = true;
                 }
-
             }
+
             if (result)
                 return this.Json(new { result = 1, data = "" });
             else

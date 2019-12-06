@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Collections.Generic;
-using Maticsoft.Common;
-using OnlineExam.Model;
 
 namespace OnlineExam.BLL
 {
@@ -11,9 +9,11 @@ namespace OnlineExam.BLL
 	/// </summary>
 	public partial class AccessTable
     {
-        private readonly OnlineExam.DAL.AccessTable dal = new OnlineExam.DAL.AccessTable();
+        private readonly DAL.AccessTable dal = new DAL.AccessTable();
+
         public AccessTable()
         { }
+
         #region  BasicMethod
         /// <summary>
         /// 是否存在该记录
@@ -26,7 +26,7 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 增加一条数据
         /// </summary>
-        public int Add(OnlineExam.Model.AccessTable model)
+        public int Add(Model.AccessTable model)
         {
             return dal.Add(model);
         }
@@ -34,7 +34,7 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 更新一条数据
         /// </summary>
-        public bool Update(OnlineExam.Model.AccessTable model)
+        public bool Update(Model.AccessTable model)
         {
             return dal.Update(model);
         }
@@ -47,6 +47,7 @@ namespace OnlineExam.BLL
 
             return dal.Delete(ID);
         }
+
         /// <summary>
         /// 删除一条数据
         /// </summary>
@@ -58,7 +59,7 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 得到一个对象实体
         /// </summary>
-        public OnlineExam.Model.AccessTable GetModel(int ID)
+        public Model.AccessTable GetModel(int ID)
         {
 
             return dal.GetModel(ID);
@@ -67,7 +68,7 @@ namespace OnlineExam.BLL
         /// <summary>
         /// 得到一个对象实体，从缓存中
         /// </summary>
-        public OnlineExam.Model.AccessTable GetModelByCache(int ID)
+        public Model.AccessTable GetModelByCache(int ID)
         {
 
             string CacheKey = "AccessTableModel-" + ID;
@@ -85,7 +86,7 @@ namespace OnlineExam.BLL
                 }
                 catch { }
             }
-            return (OnlineExam.Model.AccessTable)objModel;
+            return (Model.AccessTable)objModel;
         }
 
         /// <summary>
@@ -95,6 +96,7 @@ namespace OnlineExam.BLL
         {
             return dal.GetList(strWhere);
         }
+
         /// <summary>
         /// 获得前几行数据
         /// </summary>
@@ -102,24 +104,26 @@ namespace OnlineExam.BLL
         {
             return dal.GetList(Top, strWhere, filedOrder);
         }
+
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public List<OnlineExam.Model.AccessTable> GetModelList(string strWhere)
+        public List<Model.AccessTable> GetModelList(string strWhere)
         {
             DataSet ds = dal.GetList(strWhere);
             return DataTableToList(ds.Tables[0]);
         }
+
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public List<OnlineExam.Model.AccessTable> DataTableToList(DataTable dt)
+        public List<Model.AccessTable> DataTableToList(DataTable dt)
         {
-            List<OnlineExam.Model.AccessTable> modelList = new List<OnlineExam.Model.AccessTable>();
+            List<Model.AccessTable> modelList = new List<Model.AccessTable>();
             int rowsCount = dt.Rows.Count;
             if (rowsCount > 0)
             {
-                OnlineExam.Model.AccessTable model;
+                Model.AccessTable model;
                 for (int n = 0; n < rowsCount; n++)
                 {
                     model = dal.DataRowToModel(dt.Rows[n]);
@@ -147,6 +151,7 @@ namespace OnlineExam.BLL
         {
             return dal.GetRecordCount(strWhere);
         }
+
         /// <summary>
         /// 分页获取数据列表
         /// </summary>
@@ -154,14 +159,6 @@ namespace OnlineExam.BLL
         {
             return dal.GetListByPage(strWhere, orderby, startIndex, endIndex);
         }
-        /// <summary>
-        /// 分页获取数据列表
-        /// </summary>
-        //public DataSet GetList(int PageSize,int PageIndex,string strWhere)
-        //{
-        //return dal.GetList(PageSize,PageIndex,strWhere);
-        //}
-
         #endregion  BasicMethod
     }
 }

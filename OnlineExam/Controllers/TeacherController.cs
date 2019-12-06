@@ -1,22 +1,17 @@
 ﻿using OnlineExam.Codes;
-using OnlineExam.Common;
-using Maticsoft.DBUtility;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 
 namespace OnlineExam.Controllers
 {
     [Login]
     public class TeacherController : BaseController
     {
-        OnlineExam.BLL.TeacherTable teacher = new OnlineExam.BLL.TeacherTable();
+        BLL.TeacherTable teacher = new BLL.TeacherTable();
 
-        // GET: Teacher
         public override ActionResult Index()
         {
             return View();
@@ -24,8 +19,8 @@ namespace OnlineExam.Controllers
 
         public override ActionResult AjaxList()
         {
-            int start = 0;  // 分页起始条目数
-            int length = 0; // 分页每页分页数
+            int start = 0;
+            int length = 0;
 
             string sqlString = "";
             string search = Request.Params["search"];
@@ -35,7 +30,7 @@ namespace OnlineExam.Controllers
             start = Convert.ToInt32(Request.Params["start"]);
             length = Convert.ToInt32(Request.Params["length"]);
 
-            List<OnlineExam.Model.TeacherTable> list = teacher.DataTableToList(teacher.GetListByPage(sqlString, "", start + 1, start + length).Tables[0]);
+            List<Model.TeacherTable> list = teacher.DataTableToList(teacher.GetListByPage(sqlString, "", start + 1, start + length).Tables[0]);
             int total = teacher.GetRecordCount("");
             int totalFilter = teacher.GetRecordCount(sqlString);
 
@@ -63,7 +58,6 @@ namespace OnlineExam.Controllers
         public ActionResult Create(Model.TeacherTable model)
         {
             bool result = false;
-            //model.ID = 1;
 
             if (!String.IsNullOrEmpty(model.Username) && !String.IsNullOrEmpty(model.Password) && !String.IsNullOrEmpty(model.Name))
             {

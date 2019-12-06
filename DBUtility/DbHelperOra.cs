@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Specialized;
 using System.Data;
 using System.Data.OracleClient;
-using System.Configuration;
 
 namespace Maticsoft.DBUtility
 {
-	/// <summary>
+    /// <summary>
     /// Copyright (C) Maticsoft
-	/// 数据访问基础类(基于Oracle)
-	/// 可以用户可以修改满足自己项目的需要。
-	/// </summary>
-	public abstract class DbHelperOra
+    /// 数据访问基础类(基于Oracle)
+    /// 可以用户可以修改满足自己项目的需要。
+    /// </summary>
+    public abstract class DbHelperOra
 	{
         //数据库连接字符串(web.config来配置)，可以动态更改connectionString支持多数据库.		
         public static string connectionString = PubConstant.ConnectionString;     
@@ -82,7 +80,6 @@ namespace Maticsoft.DBUtility
        
         #endregion
 
-		
 		#region  执行简单SQL语句
 
 		/// <summary>
@@ -102,7 +99,7 @@ namespace Maticsoft.DBUtility
 						int rows=cmd.ExecuteNonQuery();
 						return rows;
 					}
-					catch(System.Data.OracleClient.OracleException E)
+					catch(OracleException E)
 					{					
 						connection.Close();
 						throw new Exception(E.Message);
@@ -137,7 +134,7 @@ namespace Maticsoft.DBUtility
 					}										
 					tx.Commit();					
 				}
-				catch(System.Data.OracleClient.OracleException E)
+				catch(OracleException E)
 				{		
 					tx.Rollback();
 					throw new Exception(E.Message);
@@ -155,7 +152,7 @@ namespace Maticsoft.DBUtility
 			using (OracleConnection connection = new OracleConnection(connectionString))
 			{
 				OracleCommand cmd = new OracleCommand(SQLString,connection);
-                System.Data.OracleClient.OracleParameter myParameter = new System.Data.OracleClient.OracleParameter("@content", OracleType.NVarChar);
+                OracleParameter myParameter = new OracleParameter("@content", OracleType.NVarChar);
 				myParameter.Value = content ;
 				cmd.Parameters.Add(myParameter);
 				try
@@ -164,7 +161,7 @@ namespace Maticsoft.DBUtility
 					int rows=cmd.ExecuteNonQuery();
 					return rows;
 				}
-				catch(System.Data.OracleClient.OracleException E)
+				catch(OracleException E)
 				{				
 					throw new Exception(E.Message);
 				}
@@ -186,7 +183,7 @@ namespace Maticsoft.DBUtility
 			using (OracleConnection connection = new OracleConnection(connectionString))
 			{
 				OracleCommand cmd = new OracleCommand(strSQL,connection);
-                System.Data.OracleClient.OracleParameter myParameter = new System.Data.OracleClient.OracleParameter("@fs", OracleType.LongRaw);
+                OracleParameter myParameter = new OracleParameter("@fs", OracleType.LongRaw);
 				myParameter.Value = fs ;
 				cmd.Parameters.Add(myParameter);
 				try
@@ -195,7 +192,7 @@ namespace Maticsoft.DBUtility
 					int rows=cmd.ExecuteNonQuery();
 					return rows;
 				}
-				catch(System.Data.OracleClient.OracleException E)
+				catch(OracleException E)
 				{				
 					throw new Exception(E.Message);
 				}
@@ -231,7 +228,7 @@ namespace Maticsoft.DBUtility
 							return obj;
 						}				
 					}
-					catch(System.Data.OracleClient.OracleException e)
+					catch(OracleException e)
 					{						
 						connection.Close();
 						throw new Exception(e.Message);
@@ -254,7 +251,7 @@ namespace Maticsoft.DBUtility
                 OracleDataReader myReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 				return myReader;
 			}
-			catch(System.Data.OracleClient.OracleException e)
+			catch(OracleException e)
 			{								
 				throw new Exception(e.Message);
 			}			
@@ -276,7 +273,7 @@ namespace Maticsoft.DBUtility
 					OracleDataAdapter command = new OracleDataAdapter(SQLString,connection);				
 					command.Fill(ds,"ds");
 				}
-				catch(System.Data.OracleClient.OracleException ex)
+				catch(OracleException ex)
 				{				
 					throw new Exception(ex.Message);
 				}			
@@ -307,7 +304,7 @@ namespace Maticsoft.DBUtility
 						cmd.Parameters.Clear();
 						return rows;
 					}
-					catch(System.Data.OracleClient.OracleException E)
+					catch(OracleException E)
 					{				
 						throw new Exception(E.Message);
 					}
@@ -377,7 +374,7 @@ namespace Maticsoft.DBUtility
 							return obj;
 						}				
 					}
-					catch(System.Data.OracleClient.OracleException e)
+					catch(OracleException e)
 					{				
 						throw new Exception(e.Message);
 					}					
@@ -401,7 +398,7 @@ namespace Maticsoft.DBUtility
 				cmd.Parameters.Clear();
 				return myReader;
 			}
-			catch(System.Data.OracleClient.OracleException e)
+			catch(OracleException e)
 			{								
 				throw new Exception(e.Message);
 			}					
@@ -427,7 +424,7 @@ namespace Maticsoft.DBUtility
 						da.Fill(ds,"ds");
 						cmd.Parameters.Clear();
 					}
-					catch(System.Data.OracleClient.OracleException ex)
+					catch(OracleException ex)
 					{				
 						throw new Exception(ex.Message);
 					}			

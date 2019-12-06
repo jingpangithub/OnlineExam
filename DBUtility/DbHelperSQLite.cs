@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Specialized;
 using System.Data;
-using System.Configuration;
 using System.Data.SQLite;
 namespace Maticsoft.DBUtility
 {
@@ -99,7 +97,7 @@ namespace Maticsoft.DBUtility
                         int rows = cmd.ExecuteNonQuery();
                         return rows;
                     }
-                    catch (System.Data.SQLite.SQLiteException E)
+                    catch (SQLiteException E)
                     {
                         connection.Close();
                         throw new Exception(E.Message);
@@ -134,7 +132,7 @@ namespace Maticsoft.DBUtility
                     }
                     tx.Commit();
                 }
-                catch (System.Data.SQLite.SQLiteException E)
+                catch (SQLiteException E)
                 {
                     tx.Rollback();
                     throw new Exception(E.Message);
@@ -161,7 +159,7 @@ namespace Maticsoft.DBUtility
                     int rows = cmd.ExecuteNonQuery();
                     return rows;
                 }
-                catch (System.Data.SQLite.SQLiteException E)
+                catch (SQLiteException E)
                 {
                     throw new Exception(E.Message);
                 }
@@ -192,7 +190,7 @@ namespace Maticsoft.DBUtility
                     int rows = cmd.ExecuteNonQuery();
                     return rows;
                 }
-                catch (System.Data.SQLite.SQLiteException E)
+                catch (SQLiteException E)
                 {
                     throw new Exception(E.Message);
                 }
@@ -228,7 +226,7 @@ namespace Maticsoft.DBUtility
                             return obj;
                         }
                     }
-                    catch (System.Data.SQLite.SQLiteException e)
+                    catch (SQLiteException e)
                     {
                         connection.Close();
                         throw new Exception(e.Message);
@@ -251,7 +249,7 @@ namespace Maticsoft.DBUtility
                 SQLiteDataReader myReader = cmd.ExecuteReader();
                 return myReader;
             }
-            catch (System.Data.SQLite.SQLiteException e)
+            catch (SQLiteException e)
             {
                 throw new Exception(e.Message);
             }
@@ -273,7 +271,7 @@ namespace Maticsoft.DBUtility
                     SQLiteDataAdapter command = new SQLiteDataAdapter(SQLString, connection);
                     command.Fill(ds, "ds");
                 }
-                catch (System.Data.SQLite.SQLiteException ex)
+                catch (SQLiteException ex)
                 {
                     throw new Exception(ex.Message);
                 }
@@ -304,7 +302,7 @@ namespace Maticsoft.DBUtility
                         cmd.Parameters.Clear();
                         return rows;
                     }
-                    catch (System.Data.SQLite.SQLiteException E)
+                    catch (SQLiteException E)
                     {
                         throw new Exception(E.Message);
                     }
@@ -374,7 +372,7 @@ namespace Maticsoft.DBUtility
                             return obj;
                         }
                     }
-                    catch (System.Data.SQLite.SQLiteException e)
+                    catch (SQLiteException e)
                     {
                         throw new Exception(e.Message);
                     }
@@ -398,7 +396,7 @@ namespace Maticsoft.DBUtility
                 cmd.Parameters.Clear();
                 return myReader;
             }
-            catch (System.Data.SQLite.SQLiteException e)
+            catch (SQLiteException e)
             {
                 throw new Exception(e.Message);
             }
@@ -424,7 +422,7 @@ namespace Maticsoft.DBUtility
                         da.Fill(ds, "ds");
                         cmd.Parameters.Clear();
                     }
-                    catch (System.Data.SQLite.SQLiteException ex)
+                    catch (SQLiteException ex)
                     {
                         throw new Exception(ex.Message);
                     }

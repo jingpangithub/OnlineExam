@@ -1,0 +1,244 @@
+﻿<div class="row wrapper wrapper-content">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>考试</h5>
+            <div class="ibox-tools">
+                <a class="btn btn-xs btn-primary" onclick="table.ajax.reload()">刷新</a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="ibox-content">
+                <p id="ptest"></p>
+                <table id="exam_table" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width:14%">所属教师</th>
+                            <th style="width:14%">所属专业</th>
+                            <th style="width:20%">开始时间</th>
+                            <th style="width:14%">持续时间</th>
+                            <th style="width:18%">考试文档下载</th>
+                            <th style="width:20%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal fade" id="model_submit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">
+                    提交答案
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="form_submit" class="form-horizontal">
+                    <div class="form-group" id="warningtips" style="visibility:hidden;">
+                        <h5 class="col-sm-10 col-sm-offset-2" style="color:Red;"></h5>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10"><input id="submit_id" type="hidden" name="ID" class="form-control"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="hidden" id="submit_exam" name="Exam" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="hidden" id="submit_student" name="Student" class="form-control">
+                        </div>
+                    </div>                
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            所选路径
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" id="submit_file" name="FilePath" class="form-control">
+                            <div class="uploader-thum-container">
+                                <input type="file" id="sFile" name="sfile" onchange="Filepath(this.id,'sfile','submit_file');" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">
+                    关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="btn_submit">
+                    提交
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script {
+    <script>
+        function Filepath(sourceId, targetId, temp) {
+            if (typeof FileReader === 'undefined') {
+                alert('你的浏览器暂时不支持FileReader');
+                return;
+            }
+
+            var reader = new FileReader();
+
+            var files = document.getElementById(sourceId).files;
+            if (files.length > 0)
+                reader.readAsDataURL(files[0]);
+            else {
+                $("#" + targetId).attr("src", "/Content/INSPINIA/img/addFeedBack.png");
+            }
+
+            $.ajaxFileUpload
+                ({
+                    url: "/ExamTake/UploadFile",
+                    async: true,
+                    secureuri: false,                     
+                    fileElementId: [sourceId],
+                    dataType: 'json',
+                    complete: function (data) {
+                        try { data = jQuery.parseJSON(data.responseXML.documentElement.innerText); } catch (e) { data = jQuery.parseJSON(data.responseXML.documentElement.textContent); }
+                        console.log(data);
+                        $("#" + temp).val(data.url);
+                    }
+                });
+        }
+
+        var filter = " ";
+        var table = null;
+
+        $.extend($.validator.messages, { required: '该项不能为空' });
+
+        $(document).ready(function () {
+            table = $("#exam_table").DataTable({
+                "pageLength": 10,
+                "lengthChange": false,
+                "processing": true,
+                "serverSide": true,
+                "ordering": false,
+                "dom": '< l < t > ip >',
+                "ajax": function (tdata, callback, settings) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/ExamTake/AjaxList/" + filter,
+                        cache: false,
+                        data: tdata,
+                        dataType: "json",
+                        success: function (res) {
+                            if (res.result == 0) {
+                                toastr.warning(res.msg);
+                            } else if (res.result == 100) {
+                                location.href = "/Login/Index";
+                            } else {
+                                callback(res.data);
+                            }
+                        },
+                        error: function (XMLHttpRequest, txtStatus, errorThrown) {
+                            toastr.warning('查询失败，请重试');
+                        }
+                    });
+                },
+                "columns": [
+                    { data: "Teacher" },
+                    { data: "Major" },
+                    { data: "Start" },
+                    { data: "Last" },
+                    {
+                        data: "Filepath", "render": function (data, type, row) {
+                            if (data)
+                                return "<a download='file' href=" + data + " target='_blank'>" + data + "</a>";
+                            else
+                                return "无";
+                        }
+                    },
+                    {
+                        data: "ID",
+                        "render": function (data, type, row) {;
+                            var html;
+
+                            html = "<a class='btn btn-xs btn-primary' onclick='SubmitModel(" + data + ")'>提交</a>";
+
+                            return html;
+                        }
+                    }
+                ],
+                "language": {
+                    "sProcessing": "处理中...",
+                    "sLengthMenu": "每页显示 _MENU_ 项结果",
+                    "sZeroRecords": "没有匹配结果",
+                    "sInfo": "当前显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty": "当前显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix": "",
+                    "sSearch": "关键字搜索:",
+                    "sUrl": "",
+                    "sEmptyTable": "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands": ",",
+                    "oPaginate": {
+                        "sFirst": "首页",
+                        "sPrevious": "上页",
+                        "sNext": "下页",
+                        "sLast": "末页"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": 以升序排列此列",
+                        "sSortDescending": ": 以降序排列此列"
+                    }
+                },
+                "buttons": []
+            })
+            $("#form_submit").validate({});
+        });
+
+        function SubmitModel(id) {
+            $.post("/ExamTake/Info/" + id, null, function (res) {
+                if (res.result == 0) {
+                    toastr.error("所选择项不存在,请刷新后重试");
+                } else if (res.result == 100) {
+                    location.href = "/Login/Index";
+                } else {
+                    $("#submit_exam").val(res.data.ID);
+                }
+            })
+            $("#model_submit").modal('show');
+
+        }
+        var bs = $('#btn_submit').ladda();
+        bs.click(function () {
+            bs.ladda('start');
+            $.post("/ExamTake/Submit", $("#form_submit").serialize(), function (res) {
+                bs.ladda('stop');
+                if (res.result == 1) {
+                    table.ajax.reload();
+                    $("#model_submit").modal('hide');
+                    $("#model_submit").on("hidden.bs.modal", function () {
+                        $("input,select").val("");
+                    });
+                    toastr.success("提交成功");
+                } else if (res.result == 100) {
+                    location.href = "/Login/Index";
+                } else {
+                    toastr.warning("提交失败");
+                }
+            })
+        })        
+    </script>
+}
+
+
+
