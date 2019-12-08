@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace OnlineExam.Controllers
@@ -62,7 +64,6 @@ namespace OnlineExam.Controllers
         public ActionResult Create(Model.StudentTable model)
         {
             bool result = false;
-            //model.ID = 1;
 
             if (!String.IsNullOrEmpty(model.Username) && !String.IsNullOrEmpty(model.Password) && !String.IsNullOrEmpty(model.Name))
             {
@@ -118,6 +119,82 @@ namespace OnlineExam.Controllers
                 return this.Json(new { result = 1, data = "" });
             else
                 return this.Json(new { result = 0, msg = "没有这条数据" });
+        }
+
+        [HttpPost]
+        public string Import(HttpPostedFileBase file)
+        {
+            if(file == null)
+            {
+                return "文件为空";
+            }
+
+            var fileName = file.FileName;
+            var filePath = Server.MapPath(string.Format("~/{0}", "StudentFile"));
+            string path = Path.Combine(filePath, fileName);
+            file.SaveAs(path);
+
+            DataTable excelTable = new DataTable();
+            excelTable = ImportExcel.GetExcelDataTable(path);
+
+            DataTable dbdata = new DataTable();
+            dbdata.Columns.Add("id");
+            dbdata.Columns.Add("username");
+            dbdata.Columns.Add("password");
+            dbdata.Columns.Add("name");
+            dbdata.Columns.Add("sex");
+            dbdata.Columns.Add("major");
+
+            for (int i = 0; i < excelTable.Rows.Count; i++)
+            {
+                DataRow dr = excelTable.Rows[i];
+                DataRow dr_ = dbdata.NewRow();
+                dr_["id"] = 0;
+                dr_["username"] = dr["学号"];
+                dr_["password"] = dr["密码"];
+                dr_["name"] = dr["姓名"];
+                dr_["sex"] = dr["性别"];
+                dr_["major"] = dr["专业"];
+                dbdata.Rows.Add(dr_);
+            }
+
+            RemoveEmpty(dbdata);
+
+            List<Model.StudentTable> list = student.DataTableToList(dbdata);
+            if(list.Count > 0)
+            {
+                for(int i = 0; i < list.Count; i++)
+                {
+                    Model.StudentTable studentModel = list[i];
+                    student.Add(studentModel);
+                }
+            }            
+
+            return "导入成功";
+        }
+
+        protected void RemoveEmpty(DataTable dt)
+        {
+            List<DataRow> removelist = new List<DataRow>();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                bool IsNull = true;
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    if (!string.IsNullOrEmpty(dt.Rows[i][j].ToString().Trim()))
+                    {
+                        IsNull = false;
+                    }
+                }
+                if (IsNull)
+                {
+                    removelist.Add(dt.Rows[i]);
+                }
+            }
+            for (int i = 0; i < removelist.Count; i++)
+            {
+                dt.Rows.Remove(removelist[i]);
+            }
         }
     }
 }

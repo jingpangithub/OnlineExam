@@ -45,6 +45,7 @@
     <Compile Include="AdminTable.cs" />
     <Compile Include="AnswerTable.cs" />
     <Compile Include="ExamTable.cs" />
+    <Compile Include="IPTable.cs" />
     <Compile Include="StudentTable.cs" />
     <Compile Include="TeacherTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

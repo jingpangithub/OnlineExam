@@ -109,12 +109,25 @@
     </div>
 </div>
 
+<div class="container" id="notice" style="">
+    <div class="row">
+        <div class="jumbotron">
+            <ul id="message_box"></ul>
+        </div>
+        发布人:<input id="text_name" class="form-control" /><br />
+        通知内容:
+        <textarea id="text_message" class="form-control" rows="3"></textarea>
+        <br />
+        <button id="btn_send" class="btn btn-block btn-success">发布</button>
+    </div>
+</div>
+
 <div class="wrapper wrapper-content animated fadeIn">
     <div class="p-w-md m-t-sm">
         <div class="row">
             <div class="col-lg-12">
                 <div class="flot-chart m-b-xl">
-                    <div class="flot-chart-content" id="detail" style="height:300px;visibility:hidden"></div>
+                    <div class="flot-chart-content" id="detail" style="height:300px;"></div>
                 </div>
             </div>
         </div>
@@ -122,7 +135,29 @@
 </div>
 
 @section script {
+    <script src="~/scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
     <script>
+        $(function () {
+            var $messageBox = $('#message_box');
+            var $textMessage = $('#text_message');
+            var $textName = $('#text_name');
+            //客户端先与服务器连接起来，拿到服务器的代理操作对象
+            var hubConnection = $.connection.myHub;
+            //注册客户端函数
+            hubConnection.client.receiveMessage = function (name, message) {
+                $messageBox.append('<li><b>' + name + '</b> 发布通知:' + message + '</li>')
+            }
+
+            //启动连接到服务器
+            $.connection.hub.start().done(function () {
+                $('#btn_send').bind('click', function () {
+                    //调用服务端的函数
+                    hubConnection.server.sendMessage($textName.val(), $textMessage.val());
+                });
+            });
+        });
+
         var filter = " ";
         var table = null;
 
@@ -252,7 +287,7 @@
         });
 
         function NoticeModel() {
-
+            $("#notice").css('visibility', 'visible');
         }
 
         function EndModel(id) {

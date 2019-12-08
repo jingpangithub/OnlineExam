@@ -60,7 +60,7 @@
                         <div class="col-sm-10">
                             <input type="hidden" id="submit_student" name="Student" class="form-control">
                         </div>
-                    </div>                
+                    </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">
                             所选路径
@@ -86,8 +86,33 @@
     </div>
 </div>
 
+<div class="container">
+    <div class="row">
+        <h2>通知</h2>
+        <div class="jumbotron">
+            <ul id="message_box"></ul>
+        </div>
+    </div>
+</div>
+
 @section script {
+    <script src="~/scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
     <script>
+        $(function () {
+            var $messageBox = $('#message_box');
+
+            var hubConnection = $.connection.myHub;
+
+            hubConnection.client.receiveMessage = function (name, message) {
+                $messageBox.append('<li><b>' + name + '</b> 发布通知:' + message + '</li>')
+            }
+
+            $.connection.hub.start().done(function () {
+                
+            });
+        });
+
         function Filepath(sourceId, targetId, temp) {
             if (typeof FileReader === 'undefined') {
                 alert('你的浏览器暂时不支持FileReader');
@@ -107,7 +132,7 @@
                 ({
                     url: "/ExamTake/UploadFile",
                     async: true,
-                    secureuri: false,                     
+                    secureuri: false,
                     fileElementId: [sourceId],
                     dataType: 'json',
                     complete: function (data) {
@@ -167,7 +192,8 @@
                     },
                     {
                         data: "ID",
-                        "render": function (data, type, row) {;
+                        "render": function (data, type, row) {
+                            ;
                             var html;
 
                             html = "<a class='btn btn-xs btn-primary' onclick='SubmitModel(" + data + ")'>提交</a>";
@@ -236,7 +262,7 @@
                     toastr.warning("提交失败");
                 }
             })
-        })        
+        })
     </script>
 }
 

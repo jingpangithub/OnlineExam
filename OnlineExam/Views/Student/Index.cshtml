@@ -29,12 +29,18 @@
                         </button>
                     </div>
                 </div>
-            </form>
+            </form>    
+            <div>
+                @using (Html.BeginForm("Import", "Student", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input name="file" type="file" id="file" />
+                    <input class="btn btn-xs btn-primary" name="submit" id="submit" type="submit" value="批量导入" />
+                }
+            </div>
             <div class="hr-line-dashed">
             </div>
-
             <div class="row">
-                <h5 class="col-md-11"></h5>
+                <h5 class="col-md-11"></h5>  
                 <div class="col-md-1">
                     <a class="btn btn-xs btn-primary" onclick="table.ajax.reload()">刷新</a>
                     <a class="btn btn-xs btn-primary" onclick="CreateModel()">新建</a>
