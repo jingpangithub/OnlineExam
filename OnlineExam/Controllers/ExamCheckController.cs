@@ -16,9 +16,14 @@ namespace OnlineExam.Controllers
 
         public override ActionResult Index()
         {
-            DataTable dt = DbHelperSQL.Query("SELECT ( case when a.name = 'StudentTable' then N'学生总数' " +
-           " when a.name = 'AnswerTable' then N'提交总数' " +
-             " else a.name end) as name, " +
+            DataTable dt = DbHelperSQL.Query("SELECT ( case when a.name = 'AccessTable' then N'功能总数' " +
+           " when a.name = 'AdminTable' then N'管理员总数'" +
+           " when a.name = 'ExamTable' then N'考试总数'" +
+           " when a.name = 'TeacherTable' then N'教师总数'" +
+           " when a.name = 'StudentTable' then N'学生总数'" +
+           " when a.name = 'IPTable' then N'学生登录总数'" +
+           " when a.name = 'AnswerTable' then N'提交总数'" +
+           " else a.name end) as name, " +
      "  b.rows FROM sysobjects AS a INNER JOIN sysindexes AS b ON a.id = b.id WHERE(a.type = 'u') AND(b.indid IN(0, 1)) ORDER BY a.name, b.rows DESC").Tables[0];
             string bigData = ModelConvertHelper.ConvertToModel(dt);
             ViewBag.BigData = bigData;

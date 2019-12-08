@@ -79,7 +79,7 @@ namespace OnlineExam.Controllers
         public ActionResult Create(Model.ExamTable model)
         {
             bool result = false;
-            //model.ID = 1;            
+          
             if (!String.IsNullOrEmpty(model.Teacher) && !String.IsNullOrEmpty(model.Major))
             {
                 BLL.ExamTable exam = new BLL.ExamTable();

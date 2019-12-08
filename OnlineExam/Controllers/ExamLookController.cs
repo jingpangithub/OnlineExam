@@ -1,6 +1,11 @@
-﻿using System;
+﻿using ICSharpCode.SharpZipLib.Zip;
+using Maticsoft.DBUtility;
+using OnlineExam.Codes;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace OnlineExam.Controllers
@@ -56,6 +61,58 @@ namespace OnlineExam.Controllers
                     })
                 }
             });
+        }
+
+        [HttpPost]
+        public void DownloadFile(int id)
+        {
+            string strSql = "select * from AnswerTable where Exam = '" + id + "' and Student = '" + Session["username"] + "'";
+            List<Model.AnswerTable> tableList = new BLL.AnswerTable().DataTableToList(DbHelperSQL.Query(strSql).Tables[0]);
+
+            if (tableList.Count != 0)
+            {
+                string path = "";
+                foreach (Model.AnswerTable tableModel in tableList)
+                {
+                    path += tableModel.Filepath + "|";
+                }
+
+                ZipFileDownload(path.Split('|'), DateTime.Now.ToString("yyyyMMddhhMmss") + "_Answer.zip");
+            }
+            else
+            {
+
+            }
+        }
+
+        private void ZipFileDownload(string[] files, string zipFileName)
+        {
+            MemoryStream ms = new MemoryStream();
+            byte[] buffer = null;
+
+            using (ZipFile file = ZipFile.Create(ms))
+            {
+                file.BeginUpdate();
+
+                file.NameTransform = new MyNameTransform();
+                foreach (var item in files)
+                {
+                    file.Add(Server.MapPath(item));
+                }
+                file.CommitUpdate();
+                buffer = new byte[ms.Length];
+                ms.Position = 0;
+                ms.Read(buffer, 0, buffer.Length);   //读取文件内容(1次读ms.Length/1024M)
+                ms.Flush();
+                ms.Close();
+            }
+            Response.Clear();
+            Response.Buffer = true;
+            Response.ContentType = "application/x-zip-compressed";
+            Response.AddHeader("content-disposition", "attachment;filename=" + HttpUtility.UrlEncode(zipFileName));
+            Response.BinaryWrite(buffer);
+            Response.Flush();
+            Response.End();
         }
     }
 }

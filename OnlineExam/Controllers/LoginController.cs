@@ -94,30 +94,90 @@ namespace OnlineExam.Controllers
             }
             else if (studentList.Count > 0)
             {
-                StudentTable studentModel = studentList[0];
-                strSql = "select * from AccessTable where ID = 7 or ID = 8";
+                BLL.IPTable bllIP = new BLL.IPTable();
+                string ipv4 = GetIPv4.GetClientIPv4Address();
+               
+                string strIP = "IP='" + ipv4 + "'";
+                List<IPTable> ipList1 = bllIP.DataTableToList(bllIP.GetList(strIP).Tables[0]);
 
-                List<AccessTable> tableList = new BLL.AccessTable().DataTableToList(DbHelperSQL.Query(strSql).Tables[0]);
-
-                string sessionString = "";
-                if (tableList.Count != 0)
+                if(ipList1.Count > 0)
                 {
-                    sessionString += "[";
-                    foreach (AccessTable tableModel in tableList)
+                    IPTable IPModel = ipList1[0];
+                    if(IPModel.Username.Equals(Username))
                     {
-                        sessionString += new JavaScriptSerializer().Serialize(tableModel) + ",";
+                        StudentTable studentModel = studentList[0];
+                        strSql = "select * from AccessTable where ID = 7 or ID = 8";
+
+                        List<AccessTable> tableList = new BLL.AccessTable().DataTableToList(DbHelperSQL.Query(strSql).Tables[0]);
+
+                        string sessionString = "";
+                        if (tableList.Count != 0)
+                        {
+                            sessionString += "[";
+                            foreach (AccessTable tableModel in tableList)
+                            {
+                                sessionString += new JavaScriptSerializer().Serialize(tableModel) + ",";
+                            }
+                            sessionString = sessionString.Remove(sessionString.Length - 1);
+                            sessionString += "]";
+                        }
+
+                        Session.Timeout = 30;
+                        Session["username"] = studentModel.Username;
+                        Session["access"] = sessionString;
+                        Session["name"] = studentModel.Name;
+                        Session["type"] = "学生";
+
+                        return this.Json(new { result = 1, data = "" });
                     }
-                    sessionString = sessionString.Remove(sessionString.Length - 1);
-                    sessionString += "]";
+                    else
+                    {
+                        return this.Json(new { result = 2, data = "" });
+                    }
                 }
+                else
+                {
+                    strIP = "Username = '" + Username + "'";
+                    List<IPTable> ipList2 = bllIP.DataTableToList(bllIP.GetList(strIP).Tables[0]);
 
-                Session.Timeout = 30;
-                Session["username"] = studentModel.Username;
-                Session["access"] = sessionString;
-                Session["name"] = studentModel.Name;
-                Session["type"] = "学生";
+                    if(ipList2.Count > 0)
+                    {
+                        return this.Json(new { result = 2, data = "" });
+                    }
+                    else
+                    {
+                        IPTable model = new IPTable();
+                        model.Username = Username;
+                        model.IP = ipv4;
 
-                return this.Json(new { result = 1, data = "" });
+                        bllIP.Add(model);
+
+                        StudentTable studentModel = studentList[0];
+                        strSql = "select * from AccessTable where ID = 7 or ID = 8";
+
+                        List<AccessTable> tableList = new BLL.AccessTable().DataTableToList(DbHelperSQL.Query(strSql).Tables[0]);
+
+                        string sessionString = "";
+                        if (tableList.Count != 0)
+                        {
+                            sessionString += "[";
+                            foreach (AccessTable tableModel in tableList)
+                            {
+                                sessionString += new JavaScriptSerializer().Serialize(tableModel) + ",";
+                            }
+                            sessionString = sessionString.Remove(sessionString.Length - 1);
+                            sessionString += "]";
+                        }
+
+                        Session.Timeout = 30;
+                        Session["username"] = studentModel.Username;
+                        Session["access"] = sessionString;
+                        Session["name"] = studentModel.Name;
+                        Session["type"] = "学生";
+
+                        return this.Json(new { result = 1, data = "" });
+                    }
+                }                
             }           
             else
             {

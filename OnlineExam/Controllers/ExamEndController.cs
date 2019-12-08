@@ -1,7 +1,11 @@
-﻿using OnlineExam.Codes;
+﻿using ICSharpCode.SharpZipLib.Zip;
+using Maticsoft.DBUtility;
+using OnlineExam.Codes;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace OnlineExam.Controllers
@@ -59,12 +63,89 @@ namespace OnlineExam.Controllers
             });
         }
 
+        [HttpPost]
+        public void DownloadFile(int id)
+        {
+            string strSql = "select * from AnswerTable where Exam = '" + id + "'";
+            List<Model.AnswerTable> tableList = new BLL.AnswerTable().DataTableToList(DbHelperSQL.Query(strSql).Tables[0]);                       
+
+            if (tableList.Count != 0)
+            {
+                string path = "";
+                foreach (Model.AnswerTable tableModel in tableList)
+                {
+                    path += tableModel.Filepath + "|";
+                }
+
+                ZipFileDownload(path.Split('|'), DateTime.Now.ToString("yyyyMMddhhmmss") + "_Answer.zip");
+            }
+        }
+
         public ActionResult Clear(int id)
         {
-            if (exam.Delete(id))
+            bool result = false;
+            exam.Delete(id);
+
+            BLL.AnswerTable answer = new BLL.AnswerTable();
+            string strSql1 = "select * from AnswerTable where Exam = '" + id + "'";
+            List<Model.AnswerTable> tableList1 = new BLL.AnswerTable().DataTableToList(DbHelperSQL.Query(strSql1).Tables[0]);
+
+            if (tableList1.Count != 0)
+            {
+                foreach (Model.AnswerTable tableModel in tableList1)
+                {
+                    answer.Delete(tableModel.ID);
+                }
+            }
+
+            BLL.IPTable IP = new BLL.IPTable();
+            string strSql2 = "select * from IPTable";
+            List<Model.IPTable> tableList2 = new BLL.IPTable().DataTableToList(DbHelperSQL.Query(strSql2).Tables[0]);
+
+            if (tableList2.Count != 0)
+            {
+                foreach (Model.IPTable tableModel in tableList2)
+                {
+                    IP.Delete(tableModel.ID);
+                }
+            }
+
+            result = true;
+
+            if (result)
                 return this.Json(new { result = 1, data = "" });
             else
                 return this.Json(new { result = 0, msg = "没有这条数据" });
+        }
+
+        private void ZipFileDownload(string[] files, string zipFileName)
+        {
+            MemoryStream ms = new MemoryStream();
+            byte[] buffer = null;
+
+            using (ZipFile file = ZipFile.Create(ms))
+            {
+                file.BeginUpdate();
+
+                file.NameTransform = new MyNameTransform();
+                foreach (var item in files)
+                {
+                    file.Add(Server.MapPath(item));
+                }
+                file.CommitUpdate();
+                buffer = new byte[ms.Length];
+                ms.Position = 0;
+                ms.Read(buffer, 0, buffer.Length);   //读取文件内容(1次读ms.Length/1024M)
+                ms.Flush();
+                ms.Close();
+            }
+            Response.Clear();
+            Response.Buffer = true;
+            Response.ContentType = "application/x-zip-compressed";
+            Response.AddHeader("content-disposition", "attachment;filename=" + HttpUtility.UrlEncode(zipFileName));
+            Response.BinaryWrite(buffer);
+            Response.Flush();
+            Response.End();
         }
     }
 }
