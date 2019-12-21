@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{A7D08438-EEEA-44D9-8308-842FE9E5F08B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBUtility", "DBUtility\DBUtility.csproj", "{115564F4-80BD-43AF-9413-00CF97C667A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBUtility", "DBUtility\DBUtility.csproj", "{F52537B7-1843-4DC1-A43F-FA475990BF0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{A7D08438-EEEA-44D9-8308-842FE9E5F08B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7D08438-EEEA-44D9-8308-842FE9E5F08B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7D08438-EEEA-44D9-8308-842FE9E5F08B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{115564F4-80BD-43AF-9413-00CF97C667A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{115564F4-80BD-43AF-9413-00CF97C667A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{115564F4-80BD-43AF-9413-00CF97C667A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{115564F4-80BD-43AF-9413-00CF97C667A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F52537B7-1843-4DC1-A43F-FA475990BF0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F52537B7-1843-4DC1-A43F-FA475990BF0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F52537B7-1843-4DC1-A43F-FA475990BF0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F52537B7-1843-4DC1-A43F-FA475990BF0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

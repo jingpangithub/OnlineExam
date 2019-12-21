@@ -648,7 +648,7 @@
       <Name>DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\DBUtility\DBUtility.csproj">
-      <Project>{115564f4-80bd-43af-9413-00cf97c667a3}</Project>
+      <Project>{f52537b7-1843-4dc1-a43f-fa475990bf0c}</Project>
       <Name>DBUtility</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">

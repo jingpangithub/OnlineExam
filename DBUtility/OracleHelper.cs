@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Configuration;
 using System.Data;
+using System.Data.OracleClient;
 using System.Collections;
 using System.Collections.Generic;
-using Oracle.DataAccess.Client;
 
 namespace Maticsoft.DBUtility
 {
@@ -96,7 +96,7 @@ namespace Maticsoft.DBUtility
                         da.Fill(ds, "ds");
                         cmd.Parameters.Clear();
                     }
-                    catch (OracleException ex)
+                    catch (System.Data.OracleClient.OracleException ex)
                     {
                         throw new Exception(ex.Message);
                     }
@@ -520,7 +520,7 @@ namespace Maticsoft.DBUtility
                     tx.Commit();
                     return true;
                 }
-                catch (OracleException E)
+                catch (System.Data.OracleClient.OracleException E)
                 {
                     tx.Rollback();
                     throw E;
@@ -559,7 +559,7 @@ namespace Maticsoft.DBUtility
                     }
                     tx.Commit();
                 }
-                catch (OracleException E)
+                catch (System.Data.OracleClient.OracleException E)
                 {
                     tx.Rollback();
                     throw new Exception(E.Message);
