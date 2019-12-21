@@ -1,0 +1,170 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>用户手册</title>
+    <link href="~/Content/INSPINIA/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        header {
+            background: url("/Content/Other/images/login/header.png") repeat scroll 0 0 #006DCC;
+            box-shadow: 0 1px 300px rgba(0, 0, 0, 0.9);
+            margin-bottom: 30px;
+            padding: 50px 0 20px;
+        }
+        header p {
+            color: #FFFFFF;
+            font-size: 30px;
+            line-height: 1.2em;
+            margin-bottom: 30px;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+        }
+        .brand {
+            color: #FFFFFF;
+            font-size: 100px;
+            font-weight: normal;
+            left: -10px;
+            line-height: 1;
+            margin: 0 0 30px;
+            position: relative;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .tabs {
+            margin: 1rem;
+            max-width: 100%;
+            min-width: 320px;
+        }
+        .tabs input {
+            height: 2.5em;
+            visibility: hidden;
+        }
+        .tabs label {
+            background: #f9f9f9;
+            border-radius: .25em .25em 0 0;
+            color: #888;
+            cursor: pointer;
+            display: block;
+            float: left;
+            font-size: 1em;
+            height: 2.5em;
+            line-height: 2.5em;
+            margin-right: .25em;
+            padding: 0 1.5em;
+            text-align: center;
+        }
+        .tabs input:hover + label {
+            background: #ddd;
+            color: #666;
+        }
+        .tabs input:checked + label {
+            background: #f1f1f1;
+            color: #444;
+            position: relative;
+            z-index: 6;
+        }
+        .content {
+            background: #f1f1f1;
+            border-radius: 0 .25em .25em .25em;
+            min-height: 120px;
+            position: relative;
+            width: 100%;
+            z-index: 5;
+        }
+        .content div {
+            opacity: 0;
+            padding: 1.5em;
+            position: absolute;
+            z-index: -100;
+        }
+        .content p {
+            clear: both;
+            padding-bottom: 2rem;
+        }
+        .tabs input#tab-1:checked ~ .content #content-1, .tabs input#tab-2:checked ~ .content #content-2, .tabs input#tab-3:checked ~ .content #content-3 {
+            opacity: 1;
+            z-index: 100;
+        }
+        input.visible {
+            visibility: visible !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="span12 column text-center">
+                    <h1 class="brand">OnlineExam</h1>
+                    <p>
+                        基于ASP.NET MVC的上机考试管理系统
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <input id="tab-1" type="radio" name="tab-group" checked="checked" />
+            <label for="tab-1">管理条例</label>
+            <input id="tab-2" type="radio" name="tab-group" />
+            <label for="tab-2">教师手册</label>
+            <input id="tab-3" type="radio" name="tab-group" />
+            <label for="tab-3">考试规则</label>
+            <div class="content">
+                <div id="content-1">
+                    <ol>
+                        <li>
+                            <strong>必须</strong> 遵纪守法、做维护社会公德的模范。
+                        </li>
+                        <li>
+                            热爱工作，勤奋努力，提高工作 <strong>效率</strong> 和工作 <strong>质量</strong>。
+                        </li>
+                        <li>对自己负责，严以律己，宽以待人。</li>
+                        <li>相互协调，相互支持，配合老师和学生工作。</li>
+                    </ol>
+                </div>
+                <div id="content-2">
+                    <ol>
+                        <li>
+                            <strong>必须</strong> 遵纪守法、做维护社会公德的模范。
+                        </li>
+                        <li>
+                            忠诚人民<strong>教育事业</strong>，树立崇高职业理想。
+                        </li>
+                        <li>坚持育人为本，立德树人。</li>
+                        <li>弘扬科学精神，勇于探索，追求真理，修正错误，精益求精。</li>
+                    </ol>
+                </div>
+                <div id="content-3">
+                    <ol>
+                        <li>
+                            自觉服从监考员等考试工作人员管理，不得以任何理由妨碍监考员等考试工作人员履行职责，不得扰乱考场及其他考试工作地点的秩序。
+                        </li>
+                        <li>
+                            凭准考证和相关证件，按规定时间和地点参加考试。
+                        </li>
+                        <li>
+                            在考场内须保持安静，不准吸烟，不准喧哗，不准交头接耳、左顾右盼、打手势、做暗号，不准夹带、旁窥、抄袭或有意让他人抄袭，不准传递文具、物品等。
+                        </li>
+                        <li>
+                            如不遵守考试规则，不服从考试工作人员管理，有违纪、作弊等行为，教育考试机构将按照《国家教育考试违规处理办法》及有关规定进行处理，并将记入国家教育考试诚信档案。
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/Content/INSPINIA/js/jquery-2.1.1.js" type="text/javascript"></script>
+    <script src="/Content/INSPINIA/js/bootstrap.min.js" type="text/javascript"></script>
+</body>
+</html>

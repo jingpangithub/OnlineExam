@@ -32,6 +32,8 @@ namespace OnlineExam.Controllers
                 return this.Json(new { result = 0, data = "" });
             }
 
+            Password = encryptPwd(Password);
+
             string strSql = "Username='" + Username + "' and Password='" + Password + "'";
 
             List<AdminTable> adminList = bllAdmin.DataTableToList(bllAdmin.GetList(strSql).Tables[0]);

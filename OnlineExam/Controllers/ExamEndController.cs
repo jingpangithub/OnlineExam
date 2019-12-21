@@ -84,6 +84,22 @@ namespace OnlineExam.Controllers
         public ActionResult Clear(int id)
         {
             bool result = false;
+
+            BLL.ExamTable exam = new BLL.ExamTable();
+            string strSql = "select * from ExamTable where Id = '" + id + "'";
+            List<Model.ExamTable> tableList = new BLL.ExamTable().DataTableToList(DbHelperSQL.Query(strSql).Tables[0]);
+
+            if (tableList.Count != 0)
+            {
+                foreach (Model.ExamTable tableModel in tableList)
+                {
+                    string path = Server.MapPath(tableModel.Filepath);
+                    bool exi = System.IO.File.Exists(path);
+                    if (exi)
+                        System.IO.File.Delete(path);
+                }
+            }
+
             exam.Delete(id);
 
             BLL.AnswerTable answer = new BLL.AnswerTable();
@@ -94,6 +110,11 @@ namespace OnlineExam.Controllers
             {
                 foreach (Model.AnswerTable tableModel in tableList1)
                 {
+                    string path = Server.MapPath(tableModel.Filepath);
+                    bool exi = System.IO.File.Exists(path);
+                    if (exi)
+                        System.IO.File.Delete(path);
+
                     answer.Delete(tableModel.ID);
                 }
             }

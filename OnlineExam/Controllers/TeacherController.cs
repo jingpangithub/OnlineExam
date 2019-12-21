@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Mvc;
 
 namespace OnlineExam.Controllers
@@ -61,6 +63,8 @@ namespace OnlineExam.Controllers
 
             if (!String.IsNullOrEmpty(model.Username) && !String.IsNullOrEmpty(model.Password) && !String.IsNullOrEmpty(model.Name))
             {
+                model.Password = encryptPwd(model.Password);
+
                 var state = teacher.Add(model);
                 if (state != 0)
                 {
@@ -94,6 +98,8 @@ namespace OnlineExam.Controllers
 
             if (!String.IsNullOrEmpty(model.Username) && !String.IsNullOrEmpty(model.Password) && !String.IsNullOrEmpty(model.Name))
             {
+                model.Password = encryptPwd(model.Password);
+
                 result = teacher.Update(model);
                 if (result)
                 {
@@ -114,6 +120,19 @@ namespace OnlineExam.Controllers
                 return this.Json(new { result = 1, data = "" });
             else
                 return this.Json(new { result = 0, msg = "没有这条数据" });
+        }
+
+        private static string encryptPwd(string pwd)
+        {
+            MD5CryptoServiceProvider md5Hasher = new MD5CryptoServiceProvider();
+            byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(pwd));
+            StringBuilder sBuilder = new StringBuilder();
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+
+            return sBuilder.ToString();
         }
     }
 }

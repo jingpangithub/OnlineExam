@@ -1,4 +1,5 @@
-﻿using OnlineExam.Codes;
+﻿using Maticsoft.DBUtility;
+using OnlineExam.Codes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -130,6 +131,21 @@ namespace OnlineExam.Controllers
 
         public override ActionResult Delete(int id)
         {
+            BLL.ExamTable exam = new BLL.ExamTable();
+            string strSql = "select * from ExamTable where Id = '" + id + "'";
+            List<Model.ExamTable> tableList = new BLL.ExamTable().DataTableToList(DbHelperSQL.Query(strSql).Tables[0]);
+
+            if (tableList.Count != 0)
+            {
+                foreach (Model.ExamTable tableModel in tableList)
+                {
+                    string path = Server.MapPath(tableModel.Filepath);
+                    bool exi = System.IO.File.Exists(path);
+                    if(exi)
+                        System.IO.File.Delete(path);
+                }
+            }
+
             if (exam.Delete(id))
                 return this.Json(new { result = 1, data = "" });
             else
