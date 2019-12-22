@@ -77,11 +77,7 @@ namespace OnlineExam.Controllers
                     path += tableModel.Filepath + "|";
                 }
 
-                ZipFileDownload(path.Split('|'), DateTime.Now.ToString("yyyyMMddhhMmss") + "_Answer.zip");
-            }
-            else
-            {
-
+                ZipFileDownload(path.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries), DateTime.Now.ToString("yyyyMMddhhMmss") + "_Answer.zip");
             }
         }
 

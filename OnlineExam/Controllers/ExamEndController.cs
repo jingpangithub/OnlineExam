@@ -67,7 +67,7 @@ namespace OnlineExam.Controllers
         public void DownloadFile(int id)
         {
             string strSql = "select * from AnswerTable where Exam = '" + id + "'";
-            List<Model.AnswerTable> tableList = new BLL.AnswerTable().DataTableToList(DbHelperSQL.Query(strSql).Tables[0]);                       
+            List<Model.AnswerTable> tableList = new BLL.AnswerTable().DataTableToList(DbHelperSQL.Query(strSql).Tables[0]);
 
             if (tableList.Count != 0)
             {
@@ -77,7 +77,7 @@ namespace OnlineExam.Controllers
                     path += tableModel.Filepath + "|";
                 }
 
-                ZipFileDownload(path.Split('|'), DateTime.Now.ToString("yyyyMMddhhmmss") + "_Answer.zip");
+                ZipFileDownload(path.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries), DateTime.Now.ToString("yyyyMMddhhmmss") + "_Answer.zip");
             }
         }
 

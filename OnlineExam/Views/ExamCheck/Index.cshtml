@@ -116,9 +116,9 @@
                             考试文档
                         </label>
                         <div class="col-sm-10">
-                            <input type="text" id="upload_file" name="FilePath" class="form-control">
+                            <input type="text" id="update_file" name="FilePath" class="form-control">
                             <div class="uploader-thum-container">
-                                <input type="file" id="uFile" name="ufile" onchange="Filepath(this.id,'ufile','upload_file');" readonly />
+                                <input type="file" id="uFile" name="ufile" onchange="Filepath(this.id,'ufile','update_file');" readonly />
                             </div>
                         </div>
                     </div>
@@ -314,7 +314,7 @@
                     $("#update_major").val(res.data.Major);
                     $("#update_start").val(res.data.Start);
                     $("#update_last").val(res.data.Last);
-                    $("#update_filepath").val(res.data.Filepath);
+                    $("#update_file").val(res.data.Filepath);
                     $("#update_id").val(res.data.ID);
                 }
             })
@@ -329,7 +329,7 @@
             }, function () {
                 $.post("/ExamCheck/End", $("#form_update").serialize(), function (res) {
                     if (res.result == 1) {
-                        table.ajax.reload();
+                        window.location.reload();
                         swal("考试已结束", "", "success");
                     } else if (res.result == 100) {
                         location.href = "/Login/Index";
