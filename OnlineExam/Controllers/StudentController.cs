@@ -157,6 +157,7 @@ namespace OnlineExam.Controllers
                 DataRow dr_ = dbdata.NewRow();
                 dr_["id"] = 0;
                 dr_["username"] = dr["学号"];
+                dr["密码"] = encryptPwd(dr["密码"].ToString());
                 dr_["password"] = dr["密码"];
                 dr_["name"] = dr["姓名"];
                 dr_["sex"] = dr["性别"];

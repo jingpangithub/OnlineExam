@@ -23,5 +23,20 @@ namespace OnlineExam.Controllers
         {
             return View();
         }
+
+        public ActionResult Index4()
+        {
+            return View();
+        }
+
+        public ActionResult Index5()
+        {
+            return View();
+        }
+
+        public ActionResult Index6()
+        {
+            return View();
+        }
     }
 }

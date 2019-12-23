@@ -1,0 +1,91 @@
+﻿@{
+    Layout = "~/Views/Shared/Extra.cshtml";
+}
+
+<style>
+    .multiple-shadow {
+        padding: 10px;
+        background: #eee;
+        box-shadow: 0 0 5px 3px rgba(96,210,96,.6), 0 0 8px 6px rgba(0,182,0,.6), 0 0 8px 10px rgba(255,255,0,.6);
+    }
+</style>
+<h2 class="multiple-shadow text-center">软件工程专业相关信息</h2>
+
+<div style="margin: 30px">
+    <div class="col-md-6">
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a data-toggle="dropdown" class="alert-success"> 软件工程专业的研究领域<span class="caret text-success"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li>信息与通信安全</li>
+                    <li>计算机图形学与人机交互</li>
+                    <li>多媒体技术应用</li>
+                    <li>人工智能与识别</li>
+                    <li>嵌入式软件与应用</li>
+                    <li>分布式计算与网格计算</li>
+                    <li>云计算技术</li>
+                    <li>存储技术</li>
+                    <li>数据库技术研究</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <button class="btn btn-success center-block" data-toggle="modal" data-target="#modalDialog1">
+            河南大学计算机专业排名
+        </button>
+        <div id="modalDialog1" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">河南大学软件工程专业排名</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>教育部全国第四轮学科评估结果：C-</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div style="margin: 30px">
+    <div class="panel-group" id="Accordion1" style="margin-top: 100px">
+        <div class="panel panel-success">
+            <div class="panel-heading" data-toggle="collapse" data-target="#item1" data-parent="#Accordion1">
+                <div class="panel-title"><a href="#"><span class="caret"></span> 软件工程专业简介</a></div>
+            </div>
+            <div id="item1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>
+                        软件工程是一门研究用工程化方法构建和维护有效的、实用的和高质量的软件的学科。
+                        它涉及程序设计语言、数据库、软件开发工具、系统平台、标准、设计模式等方面。
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-success">
+            <div class="panel-heading" data-toggle="collapse" data-target="#item2" data-parent="#Accordion1">
+                <div class="panel-title"><a><span class="caret"></span> 软件工程的学科地位</a></div>
+            </div>
+            <div id="item2" class="panel--collapse collapse">
+                <div class="panel-body">
+                    <p>
+                        软件工程学科是计算学科的分支，计算学科中理论、抽象、设计等三个学科形态，
+                        绑定、大问题的复杂性、概念和形式模型、一致性和完备性、效率、演化、抽象层次、按空间排序、
+                        按时间排序、重用、安全性、折衷与决策等十二个基本概念，数学方法、系统科学方法在软件工程学科中
+                        占有重要地位。此外，软件工程还十分重视管理过程，以提高软件产品的质量、降低开发成本、
+                        保证工程按时完成。系统性、规范性、可度量性也是软件工程非常关注的。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

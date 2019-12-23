@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "~/Views/Shared/Extra.cshtml";
+}
+
+<style>
+    .multiple-shadow {
+        padding: 10px;
+        background: #eee;
+        box-shadow: 0 0 5px 3px rgba(96,210,96,.6), 0 0 8px 6px rgba(0,182,0,.6), 0 0 8px 10px rgba(255,255,0,.6);
+    }
+</style>
+<h2 class="multiple-shadow text-center">网络工程专业相关信息</h2>
+<div class="panel-group" id="Accordion1" style="margin: 30px">
+    <div class="panel panel-success">
+        <div class="panel-heading" data-toggle="collapse" data-target="#item1" data-parent="#Accordion1">
+            <div class="panel-title"><a href="#"><span class="caret"></span> 网络工程专业简介</a></div>
+        </div>
+        <div id="item1" class="panel-collapse collapse">
+            <div class="panel-body">
+                <p>
+                    网络工程专业主要讲授计算机科学基础理论、计算机软硬件系统及应用知识、
+                    网络工程的专业知识及应用知识。网络工程专业旨在培养具有创新意识，
+                    具有本专业领域分析问题和解决问题的能力，具备一定的实践技能，
+                    并具有良好的外语应用能力的高级研究应用型专门人才。
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-success">
+        <div class="panel-heading" data-toggle="collapse" data-target="#item2" data-parent="#Accordion1">
+            <div class="panel-title"><a><span class="caret"></span> 网络工程专业学生应具备的能力</a></div>
+        </div>
+        <div id="item2" class="panel--collapse collapse">
+            <div class="panel-body">
+                <p>1．具有扎实的自然科学基础、较好的人文社会科学基础和外语综合能力；</p>
+                <p>2．系统地掌握计算机和网络通信领域内的基本理论和基本知识；</p>
+                <p>3．掌握计算机、网络与通信系统的分析、设计与开发方法；</p>
+                <p>4．具有设计、开发、应用和管理计算机网络系统的基本能力；</p>
+                <p>5．了解计算机及网络通信领域的一些最新进展与发展动态；</p>
+                <p>6．了解信息产业、计算机网络建设及安全的基本方针、政策和法规；</p>
+                <p>7．掌握文献检索、资料查询的基本方法，具有一定的科学研究和实际工作能力。</p>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-success">
+        <div class="panel-heading" data-toggle="collapse" data-target="#item3" data-parent="#Accordion1">
+            <div class="panel-title"><a><span class="caret"></span> 网络工程专业的发展前景</a></div>
+        </div>
+        <div id="item3" class="panel-collapse collapse">
+            <div class="panel-body">
+                <p>
+                    随着计算机的远程信息化处理应用的高速发展和广泛应用，网络已成为经济发展的强大动力。
+                    计算机网络工程是计算机技术和通信技术密切结合而形成的新兴的技术领域，
+                    尤其在当今互联网迅猛发展和网络经济蓬勃繁荣的形势下，网络工程技术成为信息技术界关注的
+                    热门技术之一，也是迅速发展并在信息社会中得到广泛应用的一门综合性学科，
+                    网络工程师正是这一学科的主宰力量
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="btn btn-success center-block" data-toggle="modal" data-target="#modalDialog1">
+    河南大学计算机专业排名
+</button>
+<div id="modalDialog1" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">河南大学计算机专业排名</h4>
+            </div>
+            <div class="modal-body">
+                <p>教育部全国第四轮学科评估结果：C-</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

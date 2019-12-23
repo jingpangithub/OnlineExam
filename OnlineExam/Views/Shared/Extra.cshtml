@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专业介绍</title>
+    <link href="~/Content/INSPINIA/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        header {
+            background: url("/Content/Other/images/login/header.png") repeat scroll 0 0 #006DCC;
+            box-shadow: 0 1px 300px rgba(0, 0, 0, 0.9);
+            margin-bottom: 30px;
+            padding: 50px 0 20px;
+        }
+
+            header p {
+                color: #FFFFFF;
+                font-size: 30px;
+                line-height: 1.2em;
+                margin-bottom: 30px;
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+            }
+
+        .brand {
+            color: #FFFFFF;
+            font-size: 100px;
+            font-weight: normal;
+            left: -10px;
+            line-height: 1;
+            margin: 0 0 30px;
+            position: relative;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="span12 column text-center">
+                    <h1 class="brand">OnlineExam</h1>
+                    <p>
+                        基于ASP.NET MVC的上机考试管理系统
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container body-content">
+        <div class="col-md-3">
+            <div style="perspective:350px">
+                <div id="AccordionDemoLeft" class="accordionDemo"
+                     style="transform: rotateY(10deg) translate3d(-10px, 23px, 0)">
+                    <h2 class="btn-success">专业信息</h2>
+                    <div class="list-group">
+                        @Ajax.ActionLink("计算机科学与技术", "Index4", "Extra", new { id = "" }, (AjaxOptions)TempData["AjaxOptions"], new { @class = "list-group-item" })
+                        @Ajax.ActionLink("软件工程", "Index5", "Extra", new { id = "" }, (AjaxOptions)TempData["AjaxOptions"], new { @class = "list-group-item" })
+                        @Ajax.ActionLink("网络工程", "Index6", "Extra", new { id = "" }, (AjaxOptions)TempData["AjaxOptions"], new { @class = "list-group-item" })
+                    </div>
+                </div>
+            </div>
+            <script>
+                var options = {
+                    heightStyle: "content",
+                    collapsible: true
+                };
+                $("#AccordionDemoLeft").accordion(options);
+            </script>
+        </div>
+        <div class="col-md-9">
+            @RenderBody()
+        </div>
+    </div>
+
+    <script src="/Content/INSPINIA/js/jquery-2.1.1.js" type="text/javascript"></script>
+    <script src="/Content/INSPINIA/js/bootstrap.min.js" type="text/javascript"></script>
+</body>
+</html>
+

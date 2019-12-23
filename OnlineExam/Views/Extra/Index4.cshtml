@@ -1,0 +1,104 @@
+﻿@{
+    Layout = "~/Views/Shared/Extra.cshtml";
+}
+
+<style>
+    .multiple-shadow {
+        padding: 10px;
+        background: #eee;
+        box-shadow: 0 0 5px 3px rgba(96,210,96,.6), 0 0 8px 6px rgba(0,182,0,.6), 0 0 8px 10px rgba(255,255,0,.6);
+    }
+</style>
+<h2 class="multiple-shadow text-center">计算机信息与科学专业相关信息</h2>
+<div class="panel-group" id="Accordion1" style="margin: 30px">
+    <div class="panel panel-success">
+        <div class="panel-heading" data-toggle="collapse" data-target="#item1" data-parent="#Accordion1">
+            <div class="panel-title"><a href="#"><span class="caret"></span> 计算机信息与科学专业简介</a></div>
+        </div>
+        <div id="item1" class="panel-collapse collapse">
+            <div class="panel-body">
+                <p>
+                    计算机科学与技术（Computer Science and Technology）是国家一级学科，下设信息安全、软件工程、
+                    计算机软件与理论、计算机系统结构、计算机应用技术、计算机技术等专业。
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-success">
+        <div class="panel-heading" data-toggle="collapse" data-target="#item2" data-parent="#Accordion1">
+            <div class="panel-title"><a><span class="caret"></span> 计算机信息与科学专业学生应具备的能力</a></div>
+        </div>
+        <div id="item2" class="panel--collapse collapse">
+            <div class="panel-body">
+                <p>1、具备扎实的数据基础理论和基础知识；</p>
+                <p>2、具有较强的思维能力、算法设计与分析能力；</p>
+                <p>3、系统掌握计算机科学与技术专业基本理论、基本知识和操作技能；</p>
+                <p>4、了解学科的知识结构、典型技术、核心概念和基本工作流程；</p>
+                <p>5、有较强的计算机系统的认知、分析、设计、编程和应用能力；</p>
+                <p>6、掌握文献检索、资料查询的基本方法、能够独立获取相关的知识和信息，具有较强的创新意识；</p>
+                <p>7、熟练掌握一门外语，能够熟读该专业外文书刊。</p>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-success">
+        <div class="panel-heading" data-toggle="collapse" data-target="#item3" data-parent="#Accordion1">
+            <div class="panel-title"><a><span class="caret"></span> 计算机信息与科学专业的发展趋势</a></div>
+        </div>
+        <div id="item3" class="panel-collapse collapse">
+            <div class="panel-body">
+                <p>1、量子计算机</p>
+                <p>
+                    量子计算机是一类遵循量子力学规律进行高速数学和逻辑运算、存储及处理的量子物理设备，
+                    当某个设备是由量子元件组装，处理和计算的是量子信息，运行的是量子算法时，它就是量子计算机。
+                </p>
+                <p>2、神经网络计算机</p>
+                <p>
+                    人脑总体运行速度相当于每秒1000万亿次的电脑功能，可把生物大脑神经网络看做一个大规模并行处理的、
+                    紧密耦合的、能自行重组的计算网络。从大脑工作的模型中抽取计算机设计模型，
+                    用许多处理机模仿人脑的神经元机构，将信息存储在神经元之间的联络中，并采用大量的并行分布式网络
+                    就构成了神经网络计算机。
+                </p>
+                <p>3、化学计算机&生物计算机</p>
+                <p>
+                    在运行机理上，化学计算机以化学制品中的微观碳分子作信息载体，来实现信息的传输与存储。
+                    DNA分子在酶的作用下可以从某基因代码通过生物化学反应转变为另一种基因代码，转变前的基因代码
+                    可以作为输入数据，反应后的基因代码可以作为运算结果，利用这一过程可以制成新型的生物计算机。
+                    生物计算机最大的优点是生物芯片的蛋白质具有生物活性，能够跟人体的组织结合在一起，
+                    特别是可以和人的大脑和神经系统有机的连接，使人机接口自然吻合，免除了繁琐的人机对话，
+                    这样，生物计算机就可以听人指挥，成为人脑的外延或扩充部分，还能够从人体的细胞中吸收营养来补充
+                    能量，不要任何外界的能源，由于生物计算机的蛋白质分子具有自我组合的能力，从而使生物计算机
+                    具有自调节能力、自修复能力和自再生能力，更易于模拟人类大脑的功能。
+                    现今科学家已研制出了许多生物计算机的主要部件—生物芯片。
+                </p>
+                <p>4、光计算机</p>
+                <p>
+                    光计算机是用光子代替半导体芯片中的电子，以光互连来代替导线制成数字计算机。
+                    与电的特性相比光具有无法比拟的各种优点：光计算机是“光”导计算机，光在光介质中以许多个波长
+                    不同或波长相同而振动方向不同的光波传输，不存在寄生电阻、电容、电感和电子相互作用问题，
+                    光器件具有无电位差的特点，因此光计算机的信息在传输中畸变或失真小，可在同一条狭窄的通道中传输
+                    数量大得难以置信的数据。
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="btn btn-success center-block" data-toggle="modal" data-target="#modalDialog1">
+    河南大学计算机专业排名
+</button>
+<div id="modalDialog1" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">河南大学计算机专业排名</h4>
+            </div>
+            <div class="modal-body">
+                <p>教育部全国第四轮学科评估结果：C-</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
